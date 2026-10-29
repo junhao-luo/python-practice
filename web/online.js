@@ -110,7 +110,7 @@ function setupAi(){
   $('ai-settings-open').onclick=showSettings;
   $('ai-settings-close').onclick=()=>$('ai-settings').close();
   $('ai-provider').onchange=()=>{aiProvider=$('ai-provider').value;aiModel=AI_PROVIDERS[aiProvider].model;$('ai-model').value=aiModel;aiKey='';$('ai-key').value='';$('ai-consent').checked=false;refreshAiStatus();};
-  $('ai-connect').onclick=()=>{aiModel=$('ai-model').value.trim()||AI_PROVIDERS[aiProvider].model;aiKey=$('ai-key').value.trim();$('ai-key').value='';refreshAiStatus();$('ai-settings').close();toast(aiKey?`${AI_PROVIDERS[aiProvider].name} key connected for this tab session.`:'Using the site connection if available.');};
+  $('ai-connect').onclick=()=>{aiModel=$('ai-model').value.trim()||AI_PROVIDERS[aiProvider].model;const entered=$('ai-key').value.trim();if(entered)aiKey=entered;$('ai-key').value='';refreshAiStatus();$('ai-settings').close();toast(aiKey?`${AI_PROVIDERS[aiProvider].name} key connected for this tab session.`:'Using the site connection if available.');};
   $('ai-disconnect').onclick=()=>{aiKey='';$('ai-key').value='';refreshAiStatus();toast('Personal key removed from this session.');};
   $('ai-review').onclick=()=>aiReview('review');$('ai-grade').onclick=()=>aiReview('grade');
   $('exercise').addEventListener('change',()=>{$('ai-results').replaceChildren(element('p','subtle','Review your code or request a practice grade.'));lastAi=null;});
