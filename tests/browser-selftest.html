@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8"><title>Browser Python verification</title>
+<h1>Browser Python verification</h1><p id="status">Starting…</p><pre id="results"></pre>
+<script>
+const frame=document.createElement('iframe');frame.sandbox='allow-scripts';frame.hidden=true;frame.src='/sandbox.html';
+let readyResolve,pending;const ready=new Promise(resolve=>readyResolve=resolve);
+window.addEventListener('message',event=>{if(event.source!==frame.contentWindow||!event.data?.practiceRunner)return;const data=event.data;if(data.type==='ready')readyResolve();else if(pending&&data.id===pending.id){const p=pending;pending=null;p.resolve(data);}});
+document.body.append(frame);
+async function run(code,cases,rule=''){await ready;return new Promise(resolve=>{const id=crypto.randomUUID();pending={id,resolve};frame.contentWindow.postMessage({type:'execute',id,payload:{code,cases,rule}},'*');});}
+(async()=>{
+  const problems=await(await fetch('/qa-catalog')).json();let passed=0,total=0;
+  for(const problem of problems){
+    document.getElementById('status').textContent='Checking '+problem.id+'…';
+    const result=await run(problem.solution,problem.tests,problem.rule);
+    const matches=result.type==='done'&&result.results.length===problem.tests.length&&result.results.every((r,i)=>r.status==='ok'&&r.stdout===problem.tests[i].expected);
+    total+=problem.tests.length;if(matches)passed+=problem.tests.length;
+    document.getElementById('results').textContent+=(matches?'PASS ':'FAIL ')+problem.id+' ('+problem.tests.length+' cases)'+(!matches?' '+JSON.stringify(result):'')+'\n';
+  }
+  for(const [name,code,want] of [['timeout','while True: pass','timeout'],['output limit','while True: print("x"*10000)','output_limit'],['runtime error','1 / 0','error'],['EOF','input(); input()','error']]){
+    const result=await run(code,[{input:'\n'}]);const ok=result.results?.[0]?.status===want;
+    document.getElementById('results').textContent+=(ok?'PASS ':'FAIL ')+name+'\n';if(!ok)passed--;
+  }
+  const constraint=await run('for x in range(2): print(x)',[{input:''}],'while');
+  if(constraint.type!=='restriction')passed--;
+  document.getElementById('results').textContent+=(constraint.type==='restriction'?'PASS':'FAIL')+' while-only restriction\n';
+  document.getElementById('status').textContent=`DONE: ${passed}/${total} reference test cases passed, plus runner failure and restriction checks.`;
+})().catch(error=>document.getElementById('status').textContent='FAILED: '+error.message);
+</script>

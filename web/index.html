@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Python Practice Lab · Online</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/python-practice/style.css"><link rel="stylesheet" href="/python-practice/ai.css"><script src="/python-practice/app.js" defer></script><script src="/python-practice/online.js" defer></script></head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brandmark">&gt;_</span><div><strong>Python Practice Lab</strong><small>基礎程式設計（一） · MIDTERM COLLECTION</small></div></div>
+  <div class="header-right"><span class="offline"><i></i> ONLINE LAB</span><button id="ai-settings-open" class="secondary">✧ AI settings</button><div class="progress"><span id="progress-label">0 / 30 complete</span><progress id="progress" max="30" value="0"></progress></div><button id="backup" class="quiet" title="Save your drafts and progress">Export progress</button><button id="restore" class="quiet">Import</button><input id="import-file" type="file" accept="application/json,.json" hidden></div>
+</header>
+<main class="workspace">
+  <section class="problem-panel" aria-label="Exercise instructions">
+    <div class="problem-toolbar"><label for="exercise">EXERCISE</label><select id="exercise" aria-label="Choose exercise"></select><button id="previous" class="icon" aria-label="Previous exercise">←</button><button id="next" class="icon" aria-label="Next exercise">→</button></div>
+    <div class="problem-scroll">
+      <div class="eyebrow"><span id="lesson"></span><span id="completion" class="badge">IN PROGRESS</span></div>
+      <h1 id="problem-title">Loading your practice set…</h1>
+      <div class="section-label">THE CHALLENGE <span>題目</span></div><div id="description" class="description"></div>
+      <div class="sample-heading"><span class="section-label">EXAMPLE <span>範例</span></span><span class="subtle">Spaces count, too.</span></div>
+      <div class="sample"><div class="sample-label">INPUT</div><pre id="sample-input"></pre><div class="sample-label">EXPECTED OUTPUT</div><pre id="sample-output"></pre></div>
+      <div class="exact-note"><span>＝</span><p>Exact output matching<br><small>Match spaces, punctuation, and newlines. No extra prompts.</small></p></div>
+      <section class="hints"><div class="hint-heading"><div><span class="section-label">NEED A NUDGE? <span>提示</span></span><p>Start with a tool. Then find the approach.</p></div><span id="hint-count"></span></div><div id="hint-list"></div><button id="hint" class="secondary wide">＋ Show next hint</button><details id="solution-details"><summary>View reference solution</summary><p class="subtle">Read it, then close it and try from memory.</p><pre id="solution"></pre></details></section>
+      <section class="ai-section"><div class="section-label">AI TUTOR <span>程式輔導</span></div><p class="subtle">Understand an error, improve your approach, or get a practice grade.</p><div class="ai-buttons"><button id="ai-review" class="secondary">✧ Review / explain error</button><button id="ai-grade" class="secondary">Grade with AI</button></div><p class="subtle">Grade = exact output 60 + approach 25 + readability 15.</p><p id="ai-stale" class="ai-stale" hidden>Your code changed after this review. Request a new review.</p><div id="ai-results"><p class="subtle">Review your code or request a practice grade.</p></div></section>
+    </div>
+    <div class="problem-footer"><span id="test-count"></span><span>BROWSER PYTHON · 30 FIXED EXERCISES</span></div>
+  </section>
+  <div class="coding-panel">
+    <section class="editor-panel" aria-label="Python code editor">
+      <div class="editor-toolbar"><div class="file-tab"><span class="python-dot"></span>main.py <span id="save-state">Saved locally</span></div><div class="editor-actions"><button id="reset" class="quiet">Reset</button><button id="run" class="secondary">▷ Run <kbd>Ctrl ↵</kbd></button><button id="check" class="primary">Check answer <span>→</span></button></div></div>
+      <div class="editor-wrap"><pre id="line-numbers" aria-hidden="true">1</pre><textarea id="editor" aria-label="Python code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" wrap="off"></textarea></div>
+      <div class="editor-footer"><span><i></i> Python <span id="python-version"></span></span><span id="cursor">Ln 1, Col 1</span><span>UTF-8 · Spaces: 4</span></div>
+    </section>
+    <section class="terminal-panel" aria-label="Program input and terminal">
+      <div class="terminal-toolbar"><div class="terminal-title"><span>▣</span> TERMINAL <span id="run-status" role="status" aria-live="polite">Ready when you are</span></div><label class="whitespace"><input type="checkbox" id="whitespace"> Show whitespace</label></div>
+      <div class="terminal-body"><div class="stdin-panel"><div class="stdin-heading"><label for="stdin">PROGRAM INPUT</label><button id="load-sample" class="text-button">Load sample</button></div><textarea id="stdin" aria-label="Program input, one response per line" spellcheck="false" placeholder="One response to input() per line"></textarea><small>One response per line.<br>A final input newline is added.</small></div><div id="terminal" class="terminal-output" role="region" aria-label="Execution results"><div class="empty-terminal"><span>❯</span><p>Your next solution starts here.<small>Run to experiment. Check to test every case.</small></p></div></div></div>
+    </section>
+  </div>
+</main>
+<dialog id="ai-settings"><div class="dialog-heading"><h2>Connect your AI tutor</h2><button id="ai-settings-close" class="quiet" aria-label="Close AI settings">✕</button></div>
+<p id="ai-connection-status" class="ai-connection-status"></p>
+<div class="ai-connection-fields"><div><label for="ai-provider">AI PROVIDER</label><select id="ai-provider"><option value="openrouter">OpenRouter · free models</option><option value="groq">Groq · free tier</option><option value="gemini">Google Gemini · free tier</option><option value="openai">OpenAI · paid API</option></select></div><div><label for="ai-model">MODEL</label><input id="ai-model" value="openrouter/free" autocomplete="off" spellcheck="false"></div></div>
+<p><a id="ai-key-link" href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer">Get an OpenRouter API key</a></p><p id="ai-provider-note" class="subtle"></p>
+<label for="ai-key">YOUR PROVIDER API KEY</label><input id="ai-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key for this tab session">
+<p class="subtle">Your key stays in this tab’s memory and is sent over HTTPS through this app only to the selected provider. It is never saved in drafts, backups, or browser storage. Reloading clears it. Switching providers clears the connected key.</p>
+<label class="ai-consent"><input type="checkbox" id="ai-consent"><span>Allow this exercise, my code, and run results to be sent to my selected AI provider when I request feedback. Provider data policies and charges apply. Do not include private information.</span></label>
+<p class="subtle">Exact-output tests determine completion. Free models have quotas and may be unavailable. Choosing a paid model can incur provider charges. This app does not automatically switch providers or models.</p>
+<div class="dialog-actions"><button id="ai-disconnect" class="quiet">Forget personal key</button><button id="ai-connect" class="primary">Use this connection</button></div></dialog>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+</body></html>

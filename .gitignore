@@ -1,0 +1,11 @@
+node_modules/
+dist/
+public/
+.openai/
+.env
+.env.*
+!.env.example
+*.tar.gz
+*.zip
+Preview.jpg
+*-Preview.jpg

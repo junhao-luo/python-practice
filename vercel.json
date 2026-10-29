@@ -1,0 +1,8 @@
+{
+  "$schema":"https://openapi.vercel.sh/vercel.json",
+  "buildCommand":"node scripts/build.mjs",
+  "outputDirectory":"public",
+  "functions":{"api/index.mjs":{"maxDuration":60,"includeFiles":"dist/server/**"}},
+  "redirects":[{"source":"/","destination":"/python-practice/","permanent":false}],
+  "rewrites":[{"source":"/python-practice/:path*","destination":"/api?__path=:path*"}]
+}
