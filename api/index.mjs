@@ -1,4 +1,5 @@
 import worker from '../dist/server/index.js';
+import {accountRoute,savedAiRequest} from '../lib/accounts.mjs';
 export default async function handler(req,res){
   try{
     const origin='https://'+(req.headers['x-forwarded-host']||req.headers.host);
@@ -11,8 +12,14 @@ export default async function handler(req,res){
     }
     const body=req.method==='GET'||req.method==='HEAD'?undefined:typeof req.body==='string'?req.body:JSON.stringify(req.body||{});
     if(body&&Buffer.byteLength(body)>90000){res.status(413).json({error:'Request too large.'});return;}
-    const request=new Request(url,{method:req.method,headers:req.headers,...(body?{body}:{})});
-    const response=await worker.fetch(request,{...process.env,PUBLIC_APP:'1'});
+    const incoming=new Headers(req.headers);incoming.delete('oai-authenticated-user-id');incoming.delete('oai-authenticated-user-email');
+    let request=new Request(url,{method:req.method,headers:incoming,...(body?{body}:{})});
+    let response=await accountRoute(request,process.env);
+    if(!response&&req.method==='POST'&&url.pathname.endsWith('/api/ai')){
+      let data;try{data=JSON.parse(body||'{}');}catch{data={};}
+      const resolved=await savedAiRequest(request,process.env,data);if(resolved.error)response=resolved.error;else request=resolved.request;
+    }
+    response=response||await worker.fetch(request,{...process.env,PUBLIC_APP:'1'});
     res.status(response.status);response.headers.forEach((value,name)=>res.setHeader(name,value));
     res.send(Buffer.from(await response.arrayBuffer()));
   }catch{res.status(500).json({error:'The practice service could not finish this request. Please try again.'});}

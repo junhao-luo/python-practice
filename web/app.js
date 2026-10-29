@@ -1,7 +1,8 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const APP_BASE = location.pathname.startsWith('/python-practice') ? '/python-practice' : '';
-const KEY = 'python-practice-lab-v1';
+const GUEST_KEY = 'python-practice-lab-v1';
+let KEY = GUEST_KEY, identityEpoch = 0;
 let problems = [], current, busy = false, lastResult = null, toastTimer;
 let state = {selected: '', drafts: {}};
 try { const saved = JSON.parse(localStorage.getItem(KEY)); if (saved && saved.drafts && typeof saved.drafts === 'object') state = saved; } catch {}
@@ -15,7 +16,7 @@ function save() {
   catch { $('save-state').textContent = 'Storage full — export progress'; }
 }
 function toast(message) { $('toast').textContent = message; $('toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4000); }
-function solved(p) { const d = state.drafts[p.id]; return !!d && d.passedCode === d.code; }
+function solved(p) { const d = state.drafts[p.id]; return !!d && (d.completed===true || d.passedCode === d.code); }
 function progress() {
   const count = problems.filter(solved).length;
   $('progress').value = count; $('progress-label').textContent = `${count} / ${problems.length} complete`;
@@ -112,15 +113,15 @@ function renderTerminal() {
 async function execute(kind) {
   if(busy)return;
   busy=true; $('run').disabled=true; $('check').disabled=true; $('exercise').disabled=true; $('previous').disabled=true; $('next').disabled=true;
-  const p=current, code=$('editor').value;
+  const p=current, code=$('editor').value, epoch=identityEpoch;
   $('run-status').textContent = kind==='check' ? `Checking ${p.test_count} test cases…` : 'Running Python…';
   try {
     let input=$('stdin').value; if(!input.endsWith('\n'))input+='\n';
-    const data=await api('/api/'+kind,{id:p.id,code,input}); lastResult={kind,data,code,id:p.id,input};
-    if(kind==='check') { draft(p).passedCode=data.passed?code:null; save(); progress(); }
+    const data=await api('/api/'+kind,{id:p.id,code,input}); if(epoch!==identityEpoch)return; lastResult={kind,data,code,id:p.id,input};
+    if(kind==='check') { draft(p).passedCode=data.passed?code:null; if(data.passed)draft(p).completed=true; save(); progress(); }
     $('run-status').textContent=kind==='check'?(data.passed?'All tests passed':'Check results below'):(data.status==='ok'?'Run finished':statusText(data));
     renderTerminal();
-  } catch(error) { lastResult={kind:'error',data:error.message}; renderTerminal(); $('run-status').textContent='Connection or execution error'; }
+  } catch(error) { if(epoch===identityEpoch){lastResult={kind:'error',data:error.message}; renderTerminal(); $('run-status').textContent='Connection or execution error';} }
   finally {busy=false; $('run').disabled=false; $('check').disabled=false; $('exercise').disabled=false; $('previous').disabled=problems.indexOf(current)===0; $('next').disabled=problems.indexOf(current)===problems.length-1;}
 }
 $('exercise').addEventListener('change',()=>choose($('exercise').value));
@@ -165,7 +166,7 @@ $('import-file').onchange=async()=>{
     if(file.size>5000000)throw new Error('Backup is too large.');
     const incoming=JSON.parse(await file.text());if(incoming.version!==1||!incoming.drafts||typeof incoming.drafts!=='object')throw new Error('Choose a Practice Lab progress backup.');
     const clean={};
-    for(const p of problems){const d=incoming.drafts[p.id];if(d&&typeof d.code==='string'&&d.code.length<=40000&&typeof d.input==='string'&&d.input.length<=20000)clean[p.id]={code:d.code,input:d.input,hints:Number.isInteger(d.hints)?Math.max(0,Math.min(d.hints,p.hints.length)):0,passedCode:typeof d.passedCode==='string'?d.passedCode:null};}
+    for(const p of problems){const d=incoming.drafts[p.id];if(d&&typeof d.code==='string'&&d.code.length<=40000&&typeof d.input==='string'&&d.input.length<=20000)clean[p.id]={code:d.code,input:d.input,hints:Number.isInteger(d.hints)?Math.max(0,Math.min(d.hints,p.hints.length)):0,passedCode:typeof d.passedCode==='string'?d.passedCode:null,completed:d.completed===true};}
     if(!confirm('Restore this backup? It will replace your current drafts and progress.'))return;
     state={selected:incoming.selected,drafts:clean};choose(state.selected);toast('Progress restored.');
   }catch(e){toast(e.message);}finally{$('import-file').value='';}
@@ -174,6 +175,6 @@ async function init(){
   try {
     [problems]=await Promise.all([api('/api/problems'),api('/api/health').then(h=>$('python-version').textContent=h.python)]);
     problems.forEach(p=>{const o=document.createElement('option');o.value=p.id;$('exercise').append(o);});
-    choose(state.selected);
+    choose(state.selected); window.dispatchEvent(new Event('practice-ready'));
   }catch(e){$('problem-title').textContent='Could not load your practice set';$('description').textContent='Check your connection and reload this page. '+e.message;}
 }
