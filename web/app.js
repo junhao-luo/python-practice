@@ -71,6 +71,8 @@ function choose(id) {
   $('lesson').textContent = `LESSON ${String(current.lesson).padStart(2,'0')} / ${activeCourse==='ai-math'?mathLessons[current.lesson]:current.lesson===5 ? 'LOOPS 迴圈' : current.lesson===6 ? 'LISTS 串列' : current.lesson===4 ? 'CONDITIONS 條件判斷' : 'FUNDAMENTALS 基礎'}`;
   $('course-name').textContent=courses.find(c=>c.id===activeCourse)?.name||'';
   $('source-note').textContent=current.source||'';
+  const matching=document.querySelector('.exact-note p');
+  matching.replaceChildren(document.createTextNode(current.kind==='plot'?'Chart property checks':'Exact output matching'),document.createElement('br'),element('small','',current.kind==='plot'?'Match the requested data, labels and styles. No printed output is required.':'Match spaces, punctuation, and newlines. No extra prompts.'));
   $('catalog-note').textContent=`BROWSER PYTHON · ${problems.length} EXERCISES`;
   $('problem-title').textContent = current.title;
   $('description').textContent = current.description;
