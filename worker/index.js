@@ -5,9 +5,14 @@ export default {
     if(request.method!=='GET')return json({error:'Method not allowed.'},405);
     if(path==='/api/auth-config')return json({enabled:!!(env.CLERK_PUBLISHABLE_KEY&&env.CLERK_SECRET_KEY),publishableKey:env.CLERK_PUBLISHABLE_KEY||null,vaultEnabled:!!env.AI_KEY_ENCRYPTION_KEY});
     if(path==='/api/health')return json({app:'online-python-practice',python:'browser',aiConfigured:env.PUBLIC_APP!=='1'&&!!env.GEMINI_API_KEY,model:env.GEMINI_MODEL||modelDefault,providers:Object.keys(providers)});
-    if(path==='/api/problems')return json(PROBLEMS.map(({solution,tests,...p})=>({...p,sample:tests[0],test_count:tests.length})));
+    if(path==='/api/courses')return json(COURSES.map(c=>({...c,count:PROBLEMS.filter(p=>p.course===c.id).length})));
+    if(path==='/api/problems'){
+      const course=url.searchParams.get('course');
+      if(course&&!COURSES.some(c=>c.id===course))return json({error:'Unknown course.'},400);
+      return json(PROBLEMS.filter(p=>!course||p.course===course).map(({solution,tests,verification,...p})=>({...p,sample:tests[0],test_count:tests.length})));
+    }
     if(path==='/api/solution'){const p=PROBLEMS.find(p=>p.id===url.searchParams.get('id'));return p?json({code:p.solution}):json({error:'Unknown exercise.'},404);}
-    if(path==='/api/tests'){const p=PROBLEMS.find(p=>p.id===url.searchParams.get('id'));return p?json({tests:p.tests,rule:p.rule}):json({error:'Unknown exercise.'},404);}
+    if(path==='/api/tests'){const p=PROBLEMS.find(p=>p.id===url.searchParams.get('id'));return p?json({tests:p.tests,rule:p.rule,packages:p.packages||[],verification:p.verification||'',timeLimit:p.course==='ai-math'?10000:2500}):json({error:'Unknown exercise.'},404);}
     if(Object.hasOwn(ASSETS,path)){
       const mime=path.endsWith('.js')?'text/javascript':path.endsWith('.css')?'text/css':'text/html';
       const assetHeaders={...headers,'Content-Type':mime+'; charset=utf-8'};

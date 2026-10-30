@@ -27,26 +27,26 @@ function setupRunner(){
     runnerFrame.src=APP_BASE+'/sandbox.html';document.body.append(runnerFrame);
   });
 }
-async function browserRun(code,cases,rule){
+async function browserRun(code,cases,rule,options={}){
   if(!(await runnerReady))throw new Error('The browser Python runner could not start. Reload and try again.');
   if(pendingRun)throw new Error('A program is already running.');
   $('run-status').textContent='Loading browser Python…';
   return new Promise((resolve,reject)=>{
     const id=crypto.randomUUID();pendingRun={id,resolve,reject};
-    runnerFrame.contentWindow.postMessage({type:'execute',id,payload:{code,cases,rule}},'*');
+    runnerFrame.contentWindow.postMessage({type:'execute',id,payload:{code,cases,rule,...options}},'*');
   });
 }
 // Preserve the editor's existing API contract; code execution stays in the browser.
 api=async function(path,data){
   if(path==='/api/run'){
-    const result=await browserRun(data.code,[{input:data.input}],'');
+    const result=await browserRun(data.code,[{input:data.input}],'',{packages:current.packages||[],timeLimit:current.course==='ai-math'?10000:2500});
     return result.results[0];
   }
   if(path==='/api/check'){
     const exercise=await normalApi('/api/tests?id='+encodeURIComponent(data.id));
-    const result=await browserRun(data.code,exercise.tests,exercise.rule);
+    const result=await browserRun(data.code,exercise.tests,exercise.rule,{packages:exercise.packages,verification:exercise.verification,timeLimit:exercise.timeLimit});
     if(result.restriction)return {passed:false,restriction:result.restriction,results:[],total:exercise.tests.length};
-    const results=result.results.map((r,i)=>({...r,name:exercise.tests[i].name,input:exercise.tests[i].input,expected:exercise.tests[i].expected,passed:r.status==='ok'&&r.stdout===exercise.tests[i].expected,difference:difference(exercise.tests[i].expected,r.stdout)}));
+    const results=result.results.map((r,i)=>({...r,name:exercise.tests[i].name,input:exercise.tests[i].input,expected:exercise.tests[i].expected,passed:r.status==='ok'&&r.stdout===exercise.tests[i].expected&&r.verification_passed!==false,difference:difference(exercise.tests[i].expected,r.stdout)}));
     return {passed:results.length===exercise.tests.length&&results.every(r=>r.passed),total:exercise.tests.length,results};
   }
   if(path==='/api/health'){const health=await normalApi(path);aiConfigured=health.aiConfigured;refreshAiStatus();return {...health,python:'3.12 · WebAssembly'};}

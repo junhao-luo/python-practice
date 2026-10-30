@@ -3,16 +3,16 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Python Practice Lab · Online</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/python-practice/style.css"><link rel="stylesheet" href="/python-practice/ai.css"><link rel="stylesheet" href="/python-practice/accounts.css"><script src="/python-practice/app.js" defer></script><script src="/python-practice/online.js" defer></script><script src="/python-practice/assistant.js" defer></script><script src="/python-practice/accounts.js" defer></script></head>
 <body>
 <header class="topbar">
-  <div class="brand"><span class="brandmark">&gt;_</span><div><strong>Python Practice Lab</strong><small>基礎程式設計（一） · MIDTERM COLLECTION</small></div></div>
+  <div class="brand"><span class="brandmark">&gt;_</span><div><strong>Python Practice Lab</strong><small id="course-name">COURSE PRACTICE · 課程練習</small></div></div>
   <div class="header-right"><div class="account-controls"><button id="account-sign-in" class="secondary" disabled>Sign in</button><div id="account-user" hidden></div><button id="account-sync" class="quiet" title="Account sync status">Guest · progress on this device</button><button id="account-import" class="quiet" hidden>Import guest work</button></div><span class="offline"><i></i> ONLINE LAB</span><button id="ai-settings-open" class="secondary">⚙ Account & AI</button><div class="progress"><span id="progress-label">0 / 30 complete</span><progress id="progress" max="30" value="0"></progress></div><button id="backup" class="quiet" title="Save your drafts and progress">Export progress</button><button id="restore" class="quiet">Import</button><input id="import-file" type="file" accept="application/json,.json" hidden></div>
 </header>
 <main class="workspace">
   <section class="problem-panel" aria-label="Exercise instructions">
-    <div class="problem-toolbar"><label for="exercise">EXERCISE</label><select id="exercise" aria-label="Choose exercise"></select><button id="previous" class="icon" aria-label="Previous exercise">←</button><button id="next" class="icon" aria-label="Next exercise">→</button></div>
+    <div class="course-toolbar"><label for="course">COURSE 課程</label><select id="course" aria-label="Choose course"></select></div><div class="problem-toolbar"><label for="exercise">EXERCISE</label><select id="exercise" aria-label="Choose exercise"></select><button id="previous" class="icon" aria-label="Previous exercise">←</button><button id="next" class="icon" aria-label="Next exercise">→</button></div>
     <div class="problem-scroll">
       <div class="eyebrow"><span id="lesson"></span><span id="completion" class="badge">IN PROGRESS</span></div>
       <h1 id="problem-title">Loading your practice set…</h1>
-      <div class="section-label">THE CHALLENGE <span>題目</span></div><div id="description" class="description"></div>
+      <div class="section-label">THE CHALLENGE <span>題目</span></div><div id="description" class="description"></div><p id="source-note" class="subtle"></p>
       <div class="sample-heading"><span class="section-label">EXAMPLE <span>範例</span></span><span class="subtle">Spaces count, too.</span></div>
       <div class="sample"><div class="sample-label">INPUT</div><pre id="sample-input"></pre><div class="sample-label">EXPECTED OUTPUT</div><pre id="sample-output"></pre></div>
       <div class="exact-note"><span>＝</span><p>Exact output matching<br><small>Match spaces, punctuation, and newlines. No extra prompts.</small></p></div>
@@ -20,7 +20,7 @@
       <section class="ai-section"><div class="section-label">ASSESSMENT <span>成績回饋</span></div><p class="subtle">Check answer runs exact tests, then automatically grades with your connected AI.</p><p id="ai-stale" class="ai-stale" hidden>Your draft changed. Click Check answer for an updated grade.</p><div id="grade-results"><p class="subtle">Click Check answer to run the tests and get an automatic AI grade.</p></div></section>
 <section class="ai-section"><div class="section-label">AI TUTOR <span>程式輔導</span></div><p class="subtle">Ask about programming concepts or understand an error. Grading happens through Check answer.</p><button id="ai-review" class="secondary wide">Explain latest error</button><div id="ai-results" class="tutor-log" aria-live="polite"><p class="subtle">Ask a programming question or explain the latest error.</p></div><label for="tutor-input" class="section-label">YOUR QUESTION</label><textarea id="tutor-input" maxlength="1200" rows="3" placeholder="Why does my loop stop early?" aria-label="Programming question"></textarea><button id="tutor-send" class="secondary wide">Send question →</button></section>
     </div>
-    <div class="problem-footer"><span id="test-count"></span><span>BROWSER PYTHON · 30 FIXED EXERCISES</span></div>
+    <div class="problem-footer"><span id="test-count"></span><span id="catalog-note">BROWSER PYTHON</span></div>
   </section>
   <div class="coding-panel">
     <section class="editor-panel" aria-label="Python code editor">

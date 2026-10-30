@@ -1,6 +1,6 @@
 # Python Practice Lab
 
-A browser-based Python practice workspace with 30 fixed exercises, exact-output tests, progressive hints, and optional AI feedback. English prompts retain useful Mandarin keywords.
+A browser-based Python practice workspace with 80 fixed exercises across two courses, exact-output tests, progressive hints, and optional AI feedback. English prompts retain useful Mandarin keywords.
 
 Target website: **https://eljhon.me/python-practice**
 
@@ -12,7 +12,7 @@ Target website: **https://eljhon.me/python-practice**
 - Progressive hints, reference solutions, Clerk account completion/hint sync, per-device drafts, export/import.
 - Ctrl+Enter runs; Ctrl+Shift+Enter checks. Tab indents by four spaces, Shift+Tab removes indentation, and Enter continues indentation.
 
-The first run downloads the Python runtime. Each Run/Check starts a fresh worker, with a 90-second startup limit, 2.5-second limit per case, and 128 Ki-character cap per output stream. Browser caching reduces subsequent downloads. Extremely large memory allocations may still exhaust the browser; this is a self-study runner, not a secure examination system.
+The first run downloads the Python runtime. Each Run/Check starts a fresh worker, with a 90-second startup limit, a 2.5-second limit per programming case or 10 seconds per AI Mathematics case, and 128 Ki-character cap per output stream. Browser caching reduces subsequent downloads. Extremely large memory allocations may still exhaust the browser; this is a self-study runner, not a secure examination system.
 
 ## AI providers
 
@@ -53,7 +53,7 @@ node scripts/preview.mjs
 
 Open http://127.0.0.1:8766/python-practice/. On Windows you can also double-click `Start Online Preview.cmd`.
 
-The local-only `/selftest` page runs every reference program through actual browser Python. `/qa-catalog` is available only in the local preview. Neither route is deployed.
+The historical local-only `/selftest` page runs the Basic Programming reference programs through actual browser Python. `/qa-catalog` is available only in the local preview. Neither route is deployed.
 
 ## Hosting
 
@@ -67,4 +67,14 @@ Account endpoints verify Clerk session tokens and use the authenticated user ID 
 
 ## Future lecture imports
 
-The 30 exercises remain fixed. Upload/generation is not implemented yet. Each record separates `id`, `title`, `lesson`, `description`, `hints`, `rule`, `tests`, and `solution`, allowing a later pipeline to extract PowerPoint/PDF/notes, generate candidates, validate solutions/outputs, and present them for review before saving into personal collections. Uploaded lectures must be treated as data, not AI instructions. Personal collections will require authenticated storage, upload limits, quotas, and source attribution.
+The 80 exercises remain fixed. Upload/generation is not implemented yet. Each record separates `id`, `title`, `lesson`, `description`, `hints`, `rule`, `tests`, and `solution`, allowing a later pipeline to extract PowerPoint/PDF/notes, generate candidates, validate solutions/outputs, and present them for review before saving into personal collections. Uploaded lectures must be treated as data, not AI instructions. Personal collections will require authenticated storage, upload limits, quotas, and source attribution.
+
+## Courses and graph output
+
+The Course selector loads only that course's exercises and shows its completion count. Basic Programming I keeps its original 30 IDs and existing drafts/progress. AI Fundamental Mathematics I adds 50 exercises through lecture 10: probability, conversions, visualization, math/SymPy, functions, linear systems, distances, inequalities, quadratics and least squares. Both courses share the account's encrypted AI connection while retaining separate exercise records. Exports include both courses.
+
+The mathematics catalog uses the available unlocked course materials and saved translations. Tasks based on figure-only instructions have explicit adapted chart specifications; they are labeled accordingly. Some mixed numeric/graph tasks are identified as numerical parts. The reference documents are not uploaded or bundled into the public repository. See `MATH_SOURCES.md` for the source mapping.
+
+NumPy, SymPy, Matplotlib and SciPy are supported in the isolated browser runner. Required packages download from the pinned Pyodide CDN on demand. Matplotlib uses the Agg backend; figures appear as PNG images in the terminal after Run and in individual Check results. Up to four final figures are shown per case. `show()` is nonblocking; figures explicitly closed by the program are not retained. Large or slow figures may hit the execution limit. The first scientific-package download can take longer than a basic run.
+
+Nineteen chart exercises check numerical data, chart labels/styles, scatter properties, fills or subplot requirements as specified by each prompt. This is not pixel matching. The AI receives textual chart-check feedback rather than large image payloads. Numeric exercises retain exact text-output matching. All checks run in the browser and remain suitable for learning rather than examinations.

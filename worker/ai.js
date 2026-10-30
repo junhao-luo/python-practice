@@ -19,8 +19,8 @@ function evidenceFor(problem,evidence){
   let passed=0;const failures=[];
   for(let i=0;i<problem.tests.length;i++){
     const test=problem.tests[i],run=evidence.results[i];
-    if(run?.status==='ok'&&run.stdout===test.expected)passed++;
-    else if(failures.length<2)failures.push({input:short(test.input,700),expected:short(test.expected,1000),actual:short(run?.stdout,1000),status:short(run?.status,30)||'not run',error:short(run?.stderr,1200)});
+    if(run?.status==='ok'&&run.stdout===test.expected&&run.verification_passed!==false)passed++;
+    else if(failures.length<2)failures.push({input:short(test.input,700),expected:short(test.expected,1000),actual:short(run?.stdout,1000),status:short(run?.status,30)||'not run',error:short(run?.stderr,1200),chart_error:short(run?.verification_error,700)});
   }
   const restriction=short(evidence.restriction,300);
   return {checked:true,passed:restriction?0:passed,total:problem.tests.length,...(restriction?{restriction}:{}),failures};

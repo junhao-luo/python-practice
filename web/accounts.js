@@ -9,19 +9,19 @@ save=function(){
 function accountStatus(text,error=false){$('account-sync').textContent=text;$('account-sync').classList.toggle('sync-error',error);}
 function accountProgress(){
   const completed=[],hints={};
-  for(const p of problems){const d=state.drafts[p.id];if(!d)continue;if(d.completed===true||d.passedCode===d.code)completed.push(p.id);if(d.hints>0)hints[p.id]=Math.min(p.hints.length,d.hints);}
+  for(const p of allProblems){const d=state.drafts[p.id];if(!d)continue;if(d.completed===true||d.passedCode===d.code)completed.push(p.id);if(d.hints>0)hints[p.id]=Math.min(p.hints.length,d.hints);}
   return {version:1,completed,hints,selected:current?.id||problems[0].id};
 }
 function mergeAccountProgress(remote){
   const completed=new Set(remote.completed||[]);
-  for(const p of problems){
+  for(const p of allProblems){
     if(completed.has(p.id))draft(p).completed=true;
     const revealed=remote.hints?.[p.id];if(Number.isInteger(revealed))draft(p).hints=Math.max(draft(p).hints||0,Math.min(p.hints.length,revealed));
   }
 }
 function cloudState(remote){
-  const completed=problems.filter(p=>remote.completed.includes(p.id)).map(p=>p.id),hints={};
-  for(const p of problems)if(remote.hints?.[p.id]>0)hints[p.id]=remote.hints[p.id];
+  const completed=allProblems.filter(p=>remote.completed.includes(p.id)).map(p=>p.id),hints={};
+  for(const p of allProblems)if(remote.hints?.[p.id]>0)hints[p.id]=remote.hints[p.id];
   return {version:1,completed,hints,selected:remote.selected};
 }
 async function accountRequest(method,progress){
@@ -78,7 +78,7 @@ async function changeAccount(user){
   try{
     const [remote]=await Promise.all([accountRequest('GET'),loadSavedConnections(generation)]);if(generation!==accountGeneration)return;
     mergeAccountProgress(remote);
-    if(state.selected===initialSelection&&problems.some(p=>p.id===remote.selected))choose(remote.selected);
+    if(state.selected===initialSelection&&allProblems.some(p=>p.id===remote.selected))choose(remote.selected);
     localSave();progress();hints();
     cloudSnapshot=JSON.stringify(cloudState(remote));accountStatus('Progress saved to account');
   }catch(error){if(generation===accountGeneration)accountStatus('Not synced · retry',true);}
@@ -93,7 +93,7 @@ async function refreshAccount(){
 function importGuestWork(){
   if(!accountUser)return;
   const guest=readLocalAccount(GUEST_KEY);
-  for(const p of problems){
+  for(const p of allProblems){
     const incoming=guest.drafts[p.id];if(!incoming)continue;
     const existing=draft(p);
     if(typeof incoming.code==='string'&&existing.code===starter(p)){existing.code=incoming.code;existing.input=typeof incoming.input==='string'?incoming.input:p.sample.input;}

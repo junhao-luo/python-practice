@@ -3,10 +3,10 @@ const $ = id => document.getElementById(id);
 const APP_BASE = location.pathname.startsWith('/python-practice') ? '/python-practice' : '';
 const GUEST_KEY = 'python-practice-lab-v1';
 let KEY = GUEST_KEY, identityEpoch = 0;
-let problems = [], current, busy = false, lastResult = null, toastTimer;
+let problems = [], allProblems = [], courses = [], activeCourse = 'programming', current, busy = false, lastResult = null, toastTimer;
 let state = {selected: '', drafts: {}};
 try { const saved = JSON.parse(localStorage.getItem(KEY)); if (saved && saved.drafts && typeof saved.drafts === 'object') state = saved; } catch {}
-const starter = p => `# ${p.title}\n# Read the input, solve the problem, and print the exact output.\n\n`;
+const starter = p => `# ${p.title}\n# ${p.kind==='plot'?'Create the requested chart with Matplotlib.':'Read the input, solve the problem, and print the exact output.'}\n\n`;
 function draft(p = current) {
   if (!state.drafts[p.id]) state.drafts[p.id] = {code: starter(p), input: p.sample.input, hints: 0, passedCode: null};
   return state.drafts[p.id];
@@ -19,6 +19,7 @@ function toast(message) { $('toast').textContent = message; $('toast').hidden = 
 function solved(p) { const d = state.drafts[p.id]; return !!d && (d.completed===true || d.passedCode === d.code); }
 function progress() {
   const count = problems.filter(solved).length;
+  $('progress').max = problems.length;
   $('progress').value = count; $('progress-label').textContent = `${count} / ${problems.length} complete`;
   problems.forEach((p, i) => { const option = $('exercise').options[i]; option.textContent = `${solved(p) ? '✓ ' : ''}${String(i+1).padStart(2,'0')}  ${p.title}`; });
   $('completion').textContent = solved(current) ? '✓ COMPLETED' : 'IN PROGRESS';
@@ -35,8 +36,8 @@ function displayText(value) {
   return $('whitespace').checked ? value.replace(/ /g, '·').replace(/\t/g, '⇥').replace(/\n/g, '↵\n') : value;
 }
 function samples() {
-  $('sample-input').textContent = displayText(current.sample.input);
-  $('sample-output').textContent = displayText(current.sample.expected);
+  $('sample-input').textContent = current.kind==='plot'?'[No input]':displayText(current.sample.input);
+  $('sample-output').textContent = current.kind==='plot'?'Matplotlib figure: match the data and chart requirements above.':displayText(current.sample.expected);
 }
 function hints() {
   const n = Math.min(draft().hints || 0, current.hints.length);
@@ -52,14 +53,28 @@ function hints() {
   $('hint').textContent = n >= current.hints.length ? 'All hints revealed' : '＋ Show next hint';
 }
 function choose(id) {
+  const target=allProblems.find(p=>p.id===id);
+  const course=target?.course||state.course||'programming';
+  if(course!==activeCourse||!problems.length){
+    activeCourse=courses.some(c=>c.id===course)?course:'programming';
+    problems=allProblems.filter(p=>p.course===activeCourse);
+    $('course').value=activeCourse;
+    $('exercise').replaceChildren();
+    problems.forEach(p=>{const option=document.createElement('option');option.value=p.id;$('exercise').append(option);});
+  }
   current = problems.find(p => p.id === id) || problems[0];
   state.selected = current.id;
+  state.course=activeCourse;state.courseSelected=state.courseSelected||{};state.courseSelected[activeCourse]=current.id;
   const d = draft();
   $('exercise').value = current.id;
-  $('lesson').textContent = `LESSON ${String(current.lesson).padStart(2,'0')} / ${current.lesson===5 ? 'LOOPS 迴圈' : current.lesson===6 ? 'LISTS 串列' : current.lesson===4 ? 'CONDITIONS 條件判斷' : 'FUNDAMENTALS 基礎'}`;
+  const mathLessons={1:'PROBABILITY 機率',2:'VISUALIZATION 資料視覺化',3:'MATH & SYMPY 數學模組',4:'MATHEMATICAL MODELS 數學模型',5:'FUNCTIONS 函數',6:'LINEAR SYSTEMS 聯立方程式',7:'DISTANCES 距離',8:'INEQUALITIES 不等式',9:'QUADRATICS 二次函數',10:'LEAST SQUARES 最小平方法'};
+  $('lesson').textContent = `LESSON ${String(current.lesson).padStart(2,'0')} / ${activeCourse==='ai-math'?mathLessons[current.lesson]:current.lesson===5 ? 'LOOPS 迴圈' : current.lesson===6 ? 'LISTS 串列' : current.lesson===4 ? 'CONDITIONS 條件判斷' : 'FUNDAMENTALS 基礎'}`;
+  $('course-name').textContent=courses.find(c=>c.id===activeCourse)?.name||'';
+  $('source-note').textContent=current.source||'';
+  $('catalog-note').textContent=`BROWSER PYTHON · ${problems.length} EXERCISES`;
   $('problem-title').textContent = current.title;
   $('description').textContent = current.description;
-  $('test-count').textContent = `${current.test_count} TEST CASES`;
+  $('test-count').textContent = `${current.test_count} ${current.kind==='plot'?'CHART CHECK':'TEST CASES'}`;
   $('editor').value = d.code; $('stdin').value = d.input;
   $('solution-details').open = false; $('solution').textContent = '';
   $('previous').disabled = problems.indexOf(current) === 0;
@@ -79,7 +94,14 @@ function element(tag, className, text) { const e = document.createElement(tag); 
 function outputBlock(parent, label, value, error=false) {
   parent.append(element('div','output-label',label),element('pre','output-pre'+(error?' error-text':''),displayText(value)));
 }
-const statusText = r => r.status === 'timeout' ? 'Time limit exceeded (2.5 seconds). Check your loop condition and counter updates.' : r.status === 'output_limit' ? 'Output limit exceeded (128 KB). Check for an infinite printing loop.' : r.status === 'error' ? `Python error (exit ${r.exit_code}).` : '';
+function showCharts(parent,result){
+  if(result.verification_error)parent.append(element('p','error-text',result.verification_error));
+  for(const encoded of (result.images||[]).slice(0,4)){
+    if(typeof encoded!=='string'||encoded.length>3000000||!/^[A-Za-z0-9+/=]+$/.test(encoded))continue;
+    const image=element('img','chart-output');image.alt='Matplotlib chart produced by your program';image.src='data:image/png;base64,'+encoded;parent.append(image);
+  }
+}
+const statusText = r => r.status === 'timeout' ? `Time limit exceeded (${r.milliseconds/1000} seconds). Check your loop condition and counter updates.` : r.status === 'output_limit' ? 'Output limit exceeded (128 KB). Check for an infinite printing loop.' : r.status === 'error' ? `Python error (exit ${r.exit_code}).` : '';
 function renderTerminal() {
   const terminal = $('terminal'); terminal.replaceChildren();
   if (!lastResult) {
@@ -93,6 +115,7 @@ function renderTerminal() {
     outputBlock(terminal, 'STDOUT', data.stdout);
     if(data.stderr) outputBlock(terminal,'STDERR',data.stderr,true);
     if(statusText(data)) terminal.append(element('div','result-banner fail', statusText(data)));
+    showCharts(terminal,data);
     return;
   }
   if (data.restriction) { terminal.append(element('div','result-banner fail',data.restriction)); return; }
@@ -107,14 +130,15 @@ function renderTerminal() {
     if(r.difference) body.append(element('div','mismatch',`First difference: line ${r.difference.line}, column ${r.difference.column}. Expected ${JSON.stringify(r.difference.expected)}; received ${JSON.stringify(r.difference.actual)}.`));
     if(r.stderr) outputBlock(body,'PYTHON ERROR',r.stderr,true);
     if(statusText(r)) body.append(element('div','error-text',statusText(r)));
+    showCharts(body,r);
     box.append(summary,body); terminal.append(box);
   });
 }
 async function execute(kind) {
   if(busy)return;
-  busy=true; $('run').disabled=true; $('check').disabled=true; $('exercise').disabled=true; $('previous').disabled=true; $('next').disabled=true;
+  busy=true; $('run').disabled=true; $('check').disabled=true; $('course').disabled=true; $('exercise').disabled=true; $('previous').disabled=true; $('next').disabled=true;
   const p=current, code=$('editor').value, epoch=identityEpoch;
-  $('run-status').textContent = kind==='check' ? `Checking ${p.test_count} test cases…` : 'Running Python…';
+  $('run-status').textContent = kind==='check' ? (p.kind==='plot'?'Checking chart requirements…':`Checking ${p.test_count} test cases…`) : 'Running Python…';
   try {
     let input=$('stdin').value; if(!input.endsWith('\n'))input+='\n';
     const data=await api('/api/'+kind,{id:p.id,code,input}); if(epoch!==identityEpoch)return; lastResult={kind,data,code,id:p.id,input};
@@ -122,8 +146,12 @@ async function execute(kind) {
     $('run-status').textContent=kind==='check'?(data.passed?'All tests passed':'Check results below'):(data.status==='ok'?'Run finished':statusText(data));
     renderTerminal();
   } catch(error) { if(epoch===identityEpoch){lastResult={kind:'error',data:error.message}; renderTerminal(); $('run-status').textContent='Connection or execution error';} }
-  finally {busy=false; $('run').disabled=false; $('check').disabled=false; $('exercise').disabled=false; $('previous').disabled=problems.indexOf(current)===0; $('next').disabled=problems.indexOf(current)===problems.length-1;}
+  finally {busy=false; $('run').disabled=false; $('check').disabled=false; $('course').disabled=false; $('exercise').disabled=false; $('previous').disabled=problems.indexOf(current)===0; $('next').disabled=problems.indexOf(current)===problems.length-1;}
 }
+$('course').addEventListener('change',()=>{
+  const selected=$('course').value;
+  choose(state.courseSelected?.[selected]||allProblems.find(p=>p.course===selected).id);
+});
 $('exercise').addEventListener('change',()=>choose($('exercise').value));
 $('previous').onclick=()=>choose(problems[problems.indexOf(current)-1].id);
 $('next').onclick=()=>choose(problems[problems.indexOf(current)+1].id);
@@ -166,15 +194,15 @@ $('import-file').onchange=async()=>{
     if(file.size>5000000)throw new Error('Backup is too large.');
     const incoming=JSON.parse(await file.text());if(incoming.version!==1||!incoming.drafts||typeof incoming.drafts!=='object')throw new Error('Choose a Practice Lab progress backup.');
     const clean={};
-    for(const p of problems){const d=incoming.drafts[p.id];if(d&&typeof d.code==='string'&&d.code.length<=40000&&typeof d.input==='string'&&d.input.length<=20000)clean[p.id]={code:d.code,input:d.input,hints:Number.isInteger(d.hints)?Math.max(0,Math.min(d.hints,p.hints.length)):0,passedCode:typeof d.passedCode==='string'?d.passedCode:null,completed:d.completed===true};}
+    for(const p of allProblems){const d=incoming.drafts[p.id];if(d&&typeof d.code==='string'&&d.code.length<=40000&&typeof d.input==='string'&&d.input.length<=20000)clean[p.id]={code:d.code,input:d.input,hints:Number.isInteger(d.hints)?Math.max(0,Math.min(d.hints,p.hints.length)):0,passedCode:typeof d.passedCode==='string'?d.passedCode:null,completed:d.completed===true};}
     if(!confirm('Restore this backup? It will replace your current drafts and progress.'))return;
     state={selected:incoming.selected,drafts:clean};choose(state.selected);toast('Progress restored.');
   }catch(e){toast(e.message);}finally{$('import-file').value='';}
 };
 async function init(){
   try {
-    [problems]=await Promise.all([api('/api/problems'),api('/api/health').then(h=>$('python-version').textContent=h.python)]);
-    problems.forEach(p=>{const o=document.createElement('option');o.value=p.id;$('exercise').append(o);});
+    [allProblems,courses]=await Promise.all([api('/api/problems'),api('/api/courses'),api('/api/health').then(h=>$('python-version').textContent=h.python)]);
+    courses.forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.name+' · '+c.count;$('course').append(o);});
     choose(state.selected); window.dispatchEvent(new Event('practice-ready'));
   }catch(e){$('problem-title').textContent='Could not load your practice set';$('description').textContent='Check your connection and reload this page. '+e.message;}
 }

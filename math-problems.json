@@ -1,0 +1,1325 @@
+[
+  {
+    "id": "am01",
+    "course": "ai-math",
+    "title": "BMI calculation 身體質量指數",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "Read height in centimeters and weight in kilograms, on two lines. Print BMI to two decimals.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "h=float(input())\nw=float(input())\nprint(f\"{w/(h/100)**2:.2f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "175\n65\n",
+        "expected": "21.22\n"
+      },
+      {
+        "name": "Example",
+        "input": "168\n72\n",
+        "expected": "25.51\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am02",
+    "course": "ai-math",
+    "title": "Square meters to ping 平方公尺與坪",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "Read an area in square meters. Use 1 ping = 3.305785 square meters. Print the area in ping to two decimals.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "area=float(input())\nprint(f\"{area/3.305785:.2f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "234\n",
+        "expected": "70.79\n"
+      },
+      {
+        "name": "Example",
+        "input": "33.05785\n",
+        "expected": "10.00\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am03",
+    "course": "ai-math",
+    "title": "Bayes probability 貝氏定理",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "P(E)=0.70, P(H)=0.30, P(E|H)=0.40. Print P(H|E) as a percentage to two decimals, followed immediately by %. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Use P(H|E)=P(E|H)P(H)/P(E).",
+      "Multiply by 100 only when converting to a percentage.",
+      "Format with .2f and append %."
+    ],
+    "rule": "",
+    "solution": "print(f\"{0.30*0.40/0.70*100:.2f}%\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "17.14%\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am04",
+    "course": "ai-math",
+    "title": "At least one 1 or 6 補事件",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "Read a nonnegative roll count n. For a fair six-sided die, print the probability of at least one 1 or 6 in n independent rolls, as a percentage with two decimals and %.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "n=int(input())\nprint(f\"{(1-(4/6)**n)*100:.2f}%\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "5\n",
+        "expected": "86.83%\n"
+      },
+      {
+        "name": "Example",
+        "input": "0\n",
+        "expected": "0.00%\n"
+      },
+      {
+        "name": "Example",
+        "input": "1\n",
+        "expected": "33.33%\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am05",
+    "course": "ai-math",
+    "title": "No five in three rolls 獨立事件",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "No input. Print the probability of no 5 in three independent fair-die rolls as a percentage to two decimals and %.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "print(f\"{(5/6)**3*100:.2f}%\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "57.87%\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am06",
+    "course": "ai-math",
+    "title": "Business tax 營業稅",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "Read a price. Print tax at 5%, then total including tax, each on its own line to two decimals.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "price=float(input())\nprint(f\"{price*0.05:.2f}\")\nprint(f\"{price*1.05:.2f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "1333\n",
+        "expected": "66.65\n1399.65\n"
+      },
+      {
+        "name": "Example",
+        "input": "100\n",
+        "expected": "5.00\n105.00\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am07",
+    "course": "ai-math",
+    "title": "Discount and voucher 折扣與折價券",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "A product costs 2500. Pay 80% of its original price, then deduct a 300 voucher. Print the discounted price, final payment, and total savings, each as an integer on a separate line.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "price=2500\ndiscounted=price*80//100\nfinal=discounted-300\nprint(discounted)\nprint(final)\nprint(price-final)\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "2000\n1700\n800\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am08",
+    "course": "ai-math",
+    "title": "Passing both exams 條件機率",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "40 students: 28 passed exam 1, and 75% of those also passed exam 2. Print the first pass percentage to two decimals with %, the integer number passing both, and their class percentage to two decimals with %, on three lines.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "both=28*0.75\nprint(f\"{28/40*100:.2f}%\")\nprint(int(both))\nprint(f\"{both/40*100:.2f}%\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "70.00%\n21\n52.50%\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am09",
+    "course": "ai-math",
+    "title": "Balls with replacement 取球後放回",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "3 red, 2 blue and 5 white balls. Four independent draws with replacement. Print the probability of at least one red, then no red, each as a percentage with two decimals and %.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "none=(7/10)**4\nprint(f\"{(1-none)*100:.2f}%\")\nprint(f\"{none*100:.2f}%\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "75.99%\n24.01%\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am10",
+    "course": "ai-math",
+    "title": "BMI threshold 比較判斷",
+    "lesson": 1,
+    "source": "Classwork 09/16",
+    "description": "Read height in cm and weight in kg, on two lines. Print BMI to two decimals. On the next line print Overweight if the unrounded BMI is at least 24, otherwise Below threshold.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "h=float(input())\nw=float(input())\nbmi=w/(h/100)**2\nprint(f\"{bmi:.2f}\")\nprint(\"Overweight\" if bmi>=24 else \"Below threshold\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "168\n72\n",
+        "expected": "25.51\nOverweight\n"
+      },
+      {
+        "name": "Example",
+        "input": "175\n65\n",
+        "expected": "21.22\nBelow threshold\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am11",
+    "course": "ai-math",
+    "title": "Chart title and axes 圖表標題",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8 and y=[1,4,9,16,25,36,49,64]. Title: Squares, fontsize=24. Axis labels: Input and Square, both fontsize=16.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Use plot(), title(), xlabel(), ylabel().",
+      "Pass fontsize=24 to title(); fontsize=16 to the axis-label functions.",
+      "Finish with plt.show(); the chart appears below the terminal output."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nplt.plot(range(1,9),[1, 4, 9, 16, 25, 36, 49, 64])\nplt.title(\"Squares\",fontsize=24)\nplt.xlabel(\"Input\",fontsize=16)\nplt.ylabel(\"Square\",fontsize=16)\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nline(ax,range(1,9),[1, 4, 9, 16, 25, 36, 49, 64])\nlabels(ax,\"Squares\",\"Input\",\"Square\")\nneed(ax.title.get_fontsize()==24,\"Title font size must be 24.\")\nneed(ax.xaxis.label.get_fontsize()==16 and ax.yaxis.label.get_fontsize()==16,\"Axis label font sizes must be 16.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am12",
+    "course": "ai-math",
+    "title": "Ticks, limits and color 刻度與範圍",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8 and the square values in cyan. Set x limits 0..9 and y limits 0..70. X ticks: 0,2,4,6,8. Y ticks: 0,10,...,70. Make tick labels red and fontsize=12.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), xlim(), ylim(), xticks(), yticks(), tick_params(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nplt.plot(range(1,9),[1, 4, 9, 16, 25, 36, 49, 64],color=\"cyan\")\nplt.xlim(0,9)\nplt.ylim(0,70)\nplt.xticks(range(0,9,2))\nplt.yticks(range(0,71,10))\nplt.tick_params(axis=\"both\",colors=\"red\",labelsize=12)\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\ncolor(line(ax,range(1,9),[1, 4, 9, 16, 25, 36, 49, 64]),\"cyan\")\nneed(close(ax.get_xlim(),[0,9]) and close(ax.get_ylim(),[0,70]),\"Set the requested axis limits.\")\nneed(close(ax.get_xticks(),range(0,9,2)) and close(ax.get_yticks(),range(0,71,10)),\"Set the requested tick positions.\")\nneed(all(close(to_rgba(t.get_color()),to_rgba(\"red\")) and t.get_fontsize()==12 for t in ax.get_xticklabels()+ax.get_yticklabels()),\"Use red tick labels with font size 12.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am13",
+    "course": "ai-math",
+    "title": "Multiple data sets 多組數據",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "On one axes, plot x=1..8 for data1=[1, 4, 9, 16, 25, 36, 49, 64] and data2=[1, 3, 6, 10, 15, 21, 28, 36]. Label the lines Squares and Triangular; display the legend.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), legend(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nplt.plot(range(1,9),[1, 4, 9, 16, 25, 36, 49, 64],label=\"Squares\")\nplt.plot(range(1,9),[1, 3, 6, 10, 15, 21, 28, 36],label=\"Triangular\")\nplt.legend()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nline(ax,range(1,9),[1, 4, 9, 16, 25, 36, 49, 64])\nline(ax,range(1,9),[1, 3, 6, 10, 15, 21, 28, 36])\nlegend(ax,[\"Squares\",\"Triangular\"])",
+    "kind": "plot"
+  },
+  {
+    "id": "am14",
+    "course": "ai-math",
+    "title": "Four marker styles 資料點標記",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot four lines with x=1..8 and these y lists, in order: [[1, 2, 3, 4, 5, 6, 7, 8], [1, 4, 9, 16, 25, 36, 49, 64], [1, 3, 6, 10, 15, 21, 28, 36], [1, 7, 15, 26, 40, 57, 77, 100]]. Use markers o, ^, s, and x respectively.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nfor y,marker in zip([[1, 2, 3, 4, 5, 6, 7, 8], [1, 4, 9, 16, 25, 36, 49, 64], [1, 3, 6, 10, 15, 21, 28, 36], [1, 7, 15, 26, 40, 57, 77, 100]],[\"o\",\"^\",\"s\",\"x\"]):\n    plt.plot(range(1,9),y,marker=marker)\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nfor y,m in zip([[1, 2, 3, 4, 5, 6, 7, 8], [1, 4, 9, 16, 25, 36, 49, 64], [1, 3, 6, 10, 15, 21, 28, 36], [1, 7, 15, 26, 40, 57, 77, 100]],[\"o\",\"^\",\"s\",\"x\"]):\n    need(line(ax,range(1,9),y).get_marker()==m,\"Use the requested marker for each series.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am15",
+    "course": "ai-math",
+    "title": "Line styles and legend 線條樣式",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8. Data A=[5,8,12,17,23,30,38,47]: dashed line, o markers. Data B=[3,6,10,15,21,28,36,45]: dotted line, ^ markers. Display legend labels A and B in that order.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), legend(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nx=range(1,9)\nplt.plot(x,[5,8,12,17,23,30,38,47],\"--o\",label=\"A\")\nplt.plot(x,[3,6,10,15,21,28,36,45],\":^\",label=\"B\")\nplt.legend()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nl=line(ax,range(1,9),[5,8,12,17,23,30,38,47]);need(l.get_linestyle()==\"--\" and l.get_marker()==\"o\",\"A needs dashed lines and circles.\")\nl=line(ax,range(1,9),[3,6,10,15,21,28,36,45]);need(l.get_linestyle()==\":\" and l.get_marker()==\"^\",\"B needs dotted lines and triangles.\")\nlegend(ax,[\"A\",\"B\"])",
+    "kind": "plot"
+  },
+  {
+    "id": "am16",
+    "course": "ai-math",
+    "title": "Widths and tick fonts 線寬與字體",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8 with series [[10, 20, 30, 40, 50, 60, 70, 80], [8, 18, 29, 41, 54, 68, 83, 99], [5, 15, 25, 35, 45, 55, 65, 75]]. Use widths 1,2,3; markers o,^,s; labels A,B,C respectively. Display a legend. Set both-axis tick-label fontsize=14.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), tick_params(), legend(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nfor y,w,m,label in zip([[10, 20, 30, 40, 50, 60, 70, 80], [8, 18, 29, 41, 54, 68, 83, 99], [5, 15, 25, 35, 45, 55, 65, 75]],[1,2,3],[\"o\",\"^\",\"s\"],[\"A\",\"B\",\"C\"]):\n    plt.plot(range(1,9),y,linewidth=w,marker=m,label=label)\nplt.tick_params(axis=\"both\",labelsize=14)\nplt.legend()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nfor y,w,m in zip([[10, 20, 30, 40, 50, 60, 70, 80], [8, 18, 29, 41, 54, 68, 83, 99], [5, 15, 25, 35, 45, 55, 65, 75]],[1,2,3],[\"o\",\"^\",\"s\"]):\n    l=line(ax,range(1,9),y);need(l.get_linewidth()==w and l.get_marker()==m,\"Use the specified widths and markers.\")\nlegend(ax,[\"A\",\"B\",\"C\"])\nneed(all(t.get_fontsize()==14 for t in ax.get_xticklabels()+ax.get_yticklabels()),\"Tick label font size must be 14.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am17",
+    "course": "ai-math",
+    "title": "Annotate extrema 最大值與最小值",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8 and y=[12,18,15,27,35,31,42,38]. Use annotate() with arrows: label Minimum 12 pointing to (1,12), and Maximum 42 pointing to (7,42). Text positions are your choice.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), annotate(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\ny=[12,18,15,27,35,31,42,38]\nplt.plot(range(1,9),y)\nplt.annotate(\"Minimum 12\",xy=(1,12),xytext=(2,15),arrowprops={\"arrowstyle\":\"->\"})\nplt.annotate(\"Maximum 42\",xy=(7,42),xytext=(4,40),arrowprops={\"arrowstyle\":\"->\"})\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nfrom matplotlib.text import Annotation\nline(ax,range(1,9),[12,18,15,27,35,31,42,38])\nfor text,point in [(\"Minimum 12\",(1,12)),(\"Maximum 42\",(7,42))]:\n    need(any(isinstance(t,Annotation) and t.get_text()==text and close(t.xy,point) and t.arrow_patch is not None for t in ax.texts),\"Add the requested annotation and arrow: \"+text)",
+    "kind": "plot"
+  },
+  {
+    "id": "am18",
+    "course": "ai-math",
+    "title": "Four subplots 四個子圖",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Create exactly four axes in one 2x2 figure, in row-major order. Plot x=1..8 with data [[1, 4, 9, 16, 25, 36, 49, 64], [2, 4, 8, 16, 32, 64, 128, 256], [5, 10, 15, 20, 25, 30, 35, 40], [64, 49, 36, 25, 16, 9, 4, 1]]. Titles: Squares, Powers, Linear, Reverse. Give every axes the labels x and y.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: subplots(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nfig,axes=plt.subplots(2,2)\nfor ax,y,title in zip(axes.flat,[[1, 4, 9, 16, 25, 36, 49, 64], [2, 4, 8, 16, 32, 64, 128, 256], [5, 10, 15, 20, 25, 30, 35, 40], [64, 49, 36, 25, 16, 9, 4, 1]],[\"Squares\",\"Powers\",\"Linear\",\"Reverse\"]):\n    ax.plot(range(1,9),y)\n    ax.set(title=title,xlabel=\"x\",ylabel=\"y\")\nfig.tight_layout()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nneed(len(fig.axes)==4,\"Create exactly four subplots.\")\nfor a,y,t in zip(fig.axes,[[1, 4, 9, 16, 25, 36, 49, 64], [2, 4, 8, 16, 32, 64, 128, 256], [5, 10, 15, 20, 25, 30, 35, 40], [64, 49, 36, 25, 16, 9, 4, 1]],[\"Squares\",\"Powers\",\"Linear\",\"Reverse\"]):\n    line(a,range(1,9),y);labels(a,t,\"x\",\"y\")\n    spec=a.get_subplotspec();need(spec.get_gridspec().get_geometry()==(2,2),\"Use a 2x2 subplot layout.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am19",
+    "course": "ai-math",
+    "title": "Averages in legends 平均值圖例",
+    "lesson": 2,
+    "source": "Classwork 09/23 · adapted chart specification",
+    "description": "Plot x=1..8 for [[10, 15, 20, 25, 30, 35, 40, 45], [8, 14, 19, 27, 33, 36, 42, 50], [12, 18, 23, 28, 31, 39, 44, 48]]. Label each line A avg=27.50, B avg=28.62, C avg=30.38 respectively. Title Averages; axis labels x and y; show the legend.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), title(), xlabel(), ylabel(), legend(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nfor label,y in zip(\"ABC\",[[10, 15, 20, 25, 30, 35, 40, 45], [8, 14, 19, 27, 33, 36, 42, 50], [12, 18, 23, 28, 31, 39, 44, 48]]):\n    plt.plot(range(1,9),y,label=f\"{label} avg={sum(y)/len(y):.2f}\")\nplt.title(\"Averages\")\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.legend()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nfor y in [[10, 15, 20, 25, 30, 35, 40, 45], [8, 14, 19, 27, 33, 36, 42, 50], [12, 18, 23, 28, 31, 39, 44, 48]]: line(ax,range(1,9),y)\nlabels(ax,\"Averages\",\"x\",\"y\")\nlegend(ax,[\"A avg=27.50\",\"B avg=28.62\",\"C avg=30.38\"])",
+    "kind": "plot"
+  },
+  {
+    "id": "am20",
+    "course": "ai-math",
+    "title": "Unequal scatter sizes 散點大小",
+    "lesson": 2,
+    "source": "Classwork 09/30 · adapted chart specification",
+    "description": "Use x=np.arange(9), y=x**2. Draw a scatter plot with sizes (x+1)*20, colors determined by y, and the hsv colormap.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: arange(), scatter(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.arange(9)\ny=x**2\nplt.scatter(x,y,s=(x+1)*20,c=y,cmap=\"hsv\")\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.arange(9);y=x**2\nc=scatter(ax,x,y)\nneed(close(c.get_sizes(),np.atleast_1d((x+1)*20)),\"Use the requested scatter sizes.\")\nneed(close(c.get_array(),y) and c.get_cmap().name==\"hsv\",\"Use the requested color values and hsv colormap.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am21",
+    "course": "ai-math",
+    "title": "Scatter color by y 依y變色",
+    "lesson": 2,
+    "source": "Classwork 09/30 · adapted chart specification",
+    "description": "Use x=np.arange(9), y=x**2. Draw a scatter plot with sizes 50, colors determined by y, and the hsv colormap.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: arange(), scatter(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.arange(9)\ny=x**2\nplt.scatter(x,y,s=50,c=y,cmap=\"hsv\")\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.arange(9);y=x**2\nc=scatter(ax,x,y)\nneed(close(c.get_sizes(),np.atleast_1d(50)),\"Use the requested scatter sizes.\")\nneed(close(c.get_array(),y) and c.get_cmap().name==\"hsv\",\"Use the requested color values and hsv colormap.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am22",
+    "course": "ai-math",
+    "title": "Scatter color by x 依x變色",
+    "lesson": 2,
+    "source": "Classwork 09/30 · adapted chart specification",
+    "description": "Use x=np.arange(9), y=x**2. Draw a scatter plot with sizes 50, colors determined by x, and the hsv colormap.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: arange(), scatter(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.arange(9)\ny=x**2\nplt.scatter(x,y,s=50,c=x,cmap=\"hsv\")\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.arange(9);y=x**2\nc=scatter(ax,x,y)\nneed(close(c.get_sizes(),np.atleast_1d(50)),\"Use the requested scatter sizes.\")\nneed(close(c.get_array(),x) and c.get_cmap().name==\"hsv\",\"Use the requested color values and hsv colormap.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am23",
+    "course": "ai-math",
+    "title": "Fill beneath a sine curve 曲線填色",
+    "lesson": 2,
+    "source": "Classwork 09/30 · adapted chart specification",
+    "description": "Use 400 equally spaced x values from -pi to pi, y=sin(3*x). Plot the curve and fill between -1 and y with yellow and alpha=0.3.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: linspace(), sin(), plot(), fill_between(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.linspace(-np.pi,np.pi,400)\ny=np.sin(3*x)\nplt.plot(x,y)\nplt.fill_between(x,-1,y,color=\"yellow\",alpha=0.3)\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.linspace(-np.pi,np.pi,400);y=np.sin(3*x)\nline(ax,x,y)\nfills=[c for c in ax.collections if isinstance(c,PolyCollection)]\nneed(any(c.get_alpha()==0.3 and close(c.get_facecolor()[0][:3],to_rgba(\"yellow\")[:3]) and close(np.unique(c.get_paths()[0].vertices[:,0]),np.unique(x)) and includes_vertices(c,x,y) and includes_vertices(c,x,-1) for c in fills),\"Fill between -1 and the curve, in yellow with alpha=0.3.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am24",
+    "course": "ai-math",
+    "title": "Square curve styling 平方圖樣式",
+    "lesson": 2,
+    "source": "Classwork 09/30 · adapted chart specification",
+    "description": "Plot x=0..8 and y=x**2 as a red dashed line, linewidth=2, o markers. Set ticks x=0..8 and y=0,8,...,64. Tick labels must be red.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: plot(), xticks(), yticks(), tick_params(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import matplotlib.pyplot as plt\nx=list(range(9))\nplt.plot(x,[v*v for v in x],color=\"red\",linestyle=\"--\",linewidth=2,marker=\"o\")\nplt.xticks(range(9))\nplt.yticks(range(0,65,8))\nplt.tick_params(colors=\"red\")\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.arange(9);l=line(ax,x,x*x);color(l,\"red\")\nneed(l.get_linestyle()==\"--\" and l.get_linewidth()==2 and l.get_marker()==\"o\",\"Use a dashed width-2 line with circles.\")\nneed(close(ax.get_xticks(),x) and close(ax.get_yticks(),range(0,65,8)),\"Use the requested ticks.\")\nneed(all(close(to_rgba(t.get_color()),to_rgba(\"red\")) for t in ax.get_xticklabels()+ax.get_yticklabels()),\"Use red tick labels.\")",
+    "kind": "plot"
+  },
+  {
+    "id": "am25",
+    "course": "ai-math",
+    "title": "Combined colored wave 波形與散點",
+    "lesson": 2,
+    "source": "Classwork 09/30 Ex6",
+    "description": "Use 400 equally spaced x values from -pi to pi. Let y=sin(2*x)+0.5*cos(5*x). Plot a line and scatter points with size 35, c=y, cmap=viridis. Fill between 0 and y with alpha=0.25. Label axes x and y and show a grid.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: linspace(), sin(), cos(), plot(), scatter(), fill_between(), xlabel(), ylabel(), grid(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.linspace(-np.pi,np.pi,400)\ny=np.sin(2*x)+0.5*np.cos(5*x)\nplt.plot(x,y)\nplt.scatter(x,y,s=35,c=y,cmap=\"viridis\")\nplt.fill_between(x,0,y,alpha=0.25)\nplt.xlabel(\"x\")\nplt.ylabel(\"y\")\nplt.grid()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.linspace(-np.pi,np.pi,400);y=np.sin(2*x)+0.5*np.cos(5*x)\nline(ax,x,y);c=scatter(ax,x,y)\nneed(close(c.get_sizes(),[35]) and close(c.get_array(),y) and c.get_cmap().name==\"viridis\",\"Use size 35, c=y and viridis.\")\nneed(any(isinstance(c,PolyCollection) and c.get_alpha()==0.25 and includes_vertices(c,x,y) and includes_vertices(c,x,0) for c in ax.collections),\"Fill from 0 to y with alpha=0.25.\")\nlabels(ax,x=\"x\",y=\"y\");grid(ax)",
+    "kind": "plot"
+  },
+  {
+    "id": "am26",
+    "course": "ai-math",
+    "title": "Square Growth Analysis 平方成長分析",
+    "lesson": 2,
+    "source": "Classwork 09/30 Ex7",
+    "description": "Use x=np.arange(9), y=x**2. Scatter sizes sqrt(y)*20, c=x, cmap=plasma. Connect the points with a dashed line. Title Square Growth Analysis, labels Input and Square Value. Limits x=0..8.5, y=0..70. Tick-label fontsize=12 and a grid.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: arange(), scatter(), sqrt(), plot(), title(), xlabel(), ylabel(), xlim(), ylim(), tick_params(), grid(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.arange(9)\ny=x**2\nplt.scatter(x,y,s=np.sqrt(y)*20,c=x,cmap=\"plasma\")\nplt.plot(x,y,\"--\")\nplt.title(\"Square Growth Analysis\")\nplt.xlabel(\"Input\")\nplt.ylabel(\"Square Value\")\nplt.xlim(0,8.5)\nplt.ylim(0,70)\nplt.tick_params(labelsize=12)\nplt.grid()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.arange(9);y=x*x;c=scatter(ax,x,y)\nneed(close(c.get_sizes(),np.sqrt(y)*20) and close(c.get_array(),x) and c.get_cmap().name==\"plasma\",\"Use sqrt(y)*20 sizes, c=x and plasma.\")\nneed(line(ax,x,y).get_linestyle()==\"--\",\"Connect data with a dashed line.\")\nlabels(ax,\"Square Growth Analysis\",\"Input\",\"Square Value\")\nneed(close(ax.get_xlim(),[0,8.5]) and close(ax.get_ylim(),[0,70]),\"Set the required limits.\")\nneed(all(t.get_fontsize()==12 for t in ax.get_xticklabels()+ax.get_yticklabels()),\"Tick label font size must be 12.\");grid(ax)",
+    "kind": "plot"
+  },
+  {
+    "id": "am27",
+    "course": "ai-math",
+    "title": "Square roots 平方根",
+    "lesson": 3,
+    "source": "Classwork 10/07 Ex1",
+    "description": "No input. Print sqrt(4) and sqrt(8), each to four decimals on separate lines.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\nprint(f\"{math.sqrt(4):.4f}\")\nprint(f\"{math.sqrt(8):.4f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "2.0000\n2.8284\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am28",
+    "course": "ai-math",
+    "title": "Two linear functions 一次函數",
+    "lesson": 5,
+    "source": "Classwork 10/07 Ex2",
+    "description": "Use 100 equally spaced x values from -10 to 10. Plot 5*x-10 in cyan and 2*x+6 in green. Legend labels: 5x-10 and 2x+6.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: linspace(), plot(), legend(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.linspace(-10,10,100)\nplt.plot(x,5*x-10,color=\"cyan\",label=\"5x-10\")\nplt.plot(x,2*x+6,color=\"green\",label=\"2x+6\")\nplt.legend()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.linspace(-10,10,100)\ncolor(line(ax,x,5*x-10),\"cyan\");color(line(ax,x,2*x+6),\"green\")\nlegend(ax,[\"5x-10\",\"2x+6\"])",
+    "kind": "plot"
+  },
+  {
+    "id": "am29",
+    "course": "ai-math",
+    "title": "Sell 380 items 聯立方程式",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex3",
+    "description": "Junior sells 3 items/day, senior 5. Exactly one works outside on each of 120 days, selling exactly 380 items. No input. Print junior days then senior days, as integers on separate lines.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\nx,y=symbols(\"x y\")\na=solve([x+y-120,3*x+5*y-380],[x,y])\nprint(a[x])\nprint(a[y])\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "110\n10\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am30",
+    "course": "ai-math",
+    "title": "Sales target 業績目標",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex4",
+    "description": "Junior earns 30000/day, senior 80000/day. Exactly one works outside each of 120 days. Total sales must equal 4000000. Print junior days then senior days as integers on separate lines.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\nx,y=symbols(\"x y\")\na=solve([x+y-120,30000*x+80000*y-4000000],[x,y])\nprint(a[x])\nprint(a[y])\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "112\n8\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am31",
+    "course": "ai-math",
+    "title": "Plot the sales model 方程式交點",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex5",
+    "description": "Use x=np.linspace(0,120,121). Plot y=120-x and y=(400-3*x)/8, with legend labels Days and Revenue. Mark (112,8) with an o marker using plot(). Label axes Junior days and Senior days; add a grid.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: linspace(), plot(), xlabel(), ylabel(), legend(), grid(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.linspace(0,120,121)\nplt.plot(x,120-x,label=\"Days\")\nplt.plot(x,(400-3*x)/8,label=\"Revenue\")\nplt.plot(112,8,\"o\")\nplt.xlabel(\"Junior days\")\nplt.ylabel(\"Senior days\")\nplt.legend()\nplt.grid()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.linspace(0,120,121)\nline(ax,x,120-x);line(ax,x,(400-3*x)/8)\nneed(any(close(l.get_xdata(),[112]) and close(l.get_ydata(),[8]) and l.get_marker()==\"o\" for l in ax.lines),\"Mark the intersection (112,8) with a circle.\")\nlabels(ax,x=\"Junior days\",y=\"Senior days\");legend(ax,[\"Days\",\"Revenue\"]);grid(ax)",
+    "kind": "plot"
+  },
+  {
+    "id": "am32",
+    "course": "ai-math",
+    "title": "Feasible integer days 整數可行解",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex6 · inequality interpretation",
+    "description": "A sells 4/day, B sells 7/day. A+B=30 days; at least 150 orders; B<=A/2. Enumerate nonnegative integer assignments. Print each feasible pair as A B, ordered by increasing A; print No solution if none. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Keep at least as >=; do not replace an inequality with equality.",
+      "Enumerate A from 0 to 30 and calculate B=30-A.",
+      "Check both the order threshold and B<=A/2."
+    ],
+    "rule": "",
+    "solution": "found=False\nfor a in range(31):\n    b=30-a\n    if 4*a+7*b>=150 and b<=a/2:\n        print(a,b)\n        found=True\nif not found:\n    print(\"No solution\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "20 10\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am33",
+    "course": "ai-math",
+    "title": "Equal-cost quantity 成本交點",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex7 · numerical part",
+    "description": "C1(x)=2*x+30 and C2(x)=-x+90, with costs in hundreds of dollars. No input. Print the shared quantity and cost in hundreds, as integers on separate lines.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\nx=symbols(\"x\")\nq=solve(2*x+30-(-x+90),x)[0]\nprint(q)\nprint(2*q+30)\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "20\n70\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am34",
+    "course": "ai-math",
+    "title": "Enumerate field assignments 列舉安排",
+    "lesson": 6,
+    "source": "Classwork 10/07 Ex8",
+    "description": "Exactly one of A or B works outside per day for 40 days. A makes 5 visits/day; B makes 8. Require A>=12 days and at least 250 visits. Print each valid assignment as A B visits, ordered by A. End with Count=N. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "count=0\nfor a in range(12,41):\n    b=40-a\n    visits=5*a+8*b\n    if visits>=250:\n        print(a,b,visits)\n        count+=1\nprint(f\"Count={count}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "12 28 284\n13 27 281\n14 26 278\n15 25 275\n16 24 272\n17 23 269\n18 22 266\n19 21 263\n20 20 260\n21 19 257\n22 18 254\n23 17 251\nCount=12\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am35",
+    "course": "ai-math",
+    "title": "Cafe daily break-even 咖啡廳損益",
+    "lesson": 4,
+    "source": "Classwork 10/16 Ex1 · 30-day month",
+    "description": "Assume 30 opening days/month. Monthly rent 500000 yen; 2 employees, 12 hours/day, 3000 yen/hour each. Each customer spends 300 yen; variable costs are 20% of revenue. Print the minimum whole daily customer count needed to avoid a monthly loss. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\nfixed=500000+2*12*3000*30\nprint(math.ceil(fixed/(300*(1-0.20)*30)))\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "370\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am36",
+    "course": "ai-math",
+    "title": "Two right-hand sides 多組聯立方程式",
+    "lesson": 6,
+    "source": "Classwork 10/16 Ex2",
+    "description": "Solve both systems: x+2y=3, 4x+5y=6; and x+2y=7, 4x+5y=8. Print x y for the first system, then x y for the second, each value to two decimals. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\na=np.array([[1,2],[4,5]])\nb=np.array([[3,7],[6,8]])\nanswers=np.linalg.solve(a,b)\nfor values in answers.T:\n    print(f\"{values[0]:.2f} {values[1]:.2f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "-1.00 2.00\n-6.33 6.67\n"
+      }
+    ],
+    "packages": [
+      "numpy"
+    ]
+  },
+  {
+    "id": "am37",
+    "course": "ai-math",
+    "title": "Sell 360 items 業務天數",
+    "lesson": 6,
+    "source": "Classwork 10/16 Ex3",
+    "description": "Junior sells 3/day; senior 5/day. Exactly one works outside each of 100 days to sell 360 items. Print junior days then senior days, on separate lines. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\nx,y=symbols(\"x y\")\na=solve([x+y-100,3*x+5*y-360],[x,y])\nprint(a[x])\nprint(a[y])\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "70\n30\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am38",
+    "course": "ai-math",
+    "title": "Predict customer visits 線性模型",
+    "lesson": 6,
+    "source": "Classwork 10/16 Ex4",
+    "description": "100 visits produced 10 contracts; 200 produced 40. Fit a linear model contracts=m*visits+b. Print m to two decimals, b to two decimals, then whole visits required for 100 contracts. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "m=(40-10)/(200-100)\nb=10-m*100\nprint(f\"{m:.2f}\")\nprint(f\"{b:.2f}\")\nprint(round((100-b)/m))\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "0.30\n-20.00\n400\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am39",
+    "course": "ai-math",
+    "title": "Restaurant break-even 餐廳損益兩平",
+    "lesson": 4,
+    "source": "Classwork 10/16 Ex5 · numerical part",
+    "description": "Monthly rent=50000, utilities=12000, 4 salaries of 36000. Customer spending=400 with gross margin 50%. Print the minimum whole monthly customer count to break even. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\nfixed=50000+12000+4*36000\nprint(math.ceil(fixed/(400*0.50)))\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "1030\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am40",
+    "course": "ai-math",
+    "title": "Break-even and target profit 目標利潤",
+    "lesson": 4,
+    "source": "Classwork 10/16 Ex6 · numerical part",
+    "description": "Monthly rent=68000; 3 salaries of 38000; utilities=18000; other fixed costs=20000. Each customer spends 450; variable cost ratio=45%; 30 days/month. Print six lines: fixed costs (integer); contribution per customer (.2f); minimum monthly break-even customers (integer); that monthly count divided by 30 (.2f); minimum monthly customers for at least 50000 profit (integer); that target monthly count divided by 30 (.2f). No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\nfixed=68000+3*38000+18000+20000\nc=450*(1-0.45)\nn=math.ceil(fixed/c)\nt=math.ceil((fixed+50000)/c)\nprint(fixed)\nprint(f\"{c:.2f}\")\nprint(n)\nprint(f\"{n/30:.2f}\")\nprint(t)\nprint(f\"{t/30:.2f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "220000\n247.50\n889\n29.63\n1091\n36.37\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am41",
+    "course": "ai-math",
+    "title": "Gift boxes and net profit 禮盒與淨利",
+    "lesson": 6,
+    "source": "Classwork 10/16 Ex7",
+    "description": "150 boxes sold: A sells for 800 and costs 480; B sells for 1200 and costs 700. Total revenue=156000, fixed expenses=42000. Print A count, B count, revenue, product costs, and net profit, each as an integer on its own line. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\na,b=symbols(\"a b\")\nr=solve([a+b-150,800*a+1200*b-156000],[a,b])\ncost=480*r[a]+700*r[b]\nprint(r[a])\nprint(r[b])\nprint(156000)\nprint(cost)\nprint(156000-cost-42000)\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "60\n90\n156000\n91800\n22200\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am42",
+    "course": "ai-math",
+    "title": "Euclidean and Manhattan distances 距離",
+    "lesson": 7,
+    "source": "Lecture 07 supplement",
+    "description": "Read x1 y1 x2 y2 on one line. Print Euclidean distance to four decimals, then Manhattan distance to four decimals. Coordinates may be negative.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\nx1,y1,x2,y2=map(float,input().split())\nprint(f\"{math.hypot(x2-x1,y2-y1):.4f}\")\nprint(f\"{abs(x2-x1)+abs(y2-y1):.4f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "1 2 3 5\n",
+        "expected": "3.6056\n5.0000\n"
+      },
+      {
+        "name": "Example",
+        "input": "3 5 1 2\n",
+        "expected": "3.6056\n5.0000\n"
+      },
+      {
+        "name": "Example",
+        "input": "-2 3 2 -3\n",
+        "expected": "7.2111\n10.0000\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am43",
+    "course": "ai-math",
+    "title": "Pythagorean hypotenuse 畢氏定理",
+    "lesson": 7,
+    "source": "Lecture 07",
+    "description": "Read two positive leg lengths on one line. Print the hypotenuse to four decimals.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\na,b=map(float,input().split())\nprint(f\"{math.sqrt(a*a+b*b):.4f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "3 4\n",
+        "expected": "5.0000\n"
+      },
+      {
+        "name": "Example",
+        "input": "5 12\n",
+        "expected": "13.0000\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am44",
+    "course": "ai-math",
+    "title": "Software production optimum 線性規劃",
+    "lesson": 8,
+    "source": "Lecture 08",
+    "description": "Choose nonnegative integer business projects x and app projects y. Constraints: 3x+5y<=40 and 5x+2y<=35. Profit is 500000 per project. Enumerate feasible choices. Print every maximum-profit pair as x y in increasing x, then Profit= followed by maximum profit in dollars. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Enumerate integer points; do not round a fractional continuous solution.",
+      "Reject a pair if either resource constraint is exceeded.",
+      "Keep the best profit and all pairs that achieve it."
+    ],
+    "rule": "",
+    "solution": "best=-1\npairs=[]\nfor x in range(8):\n    for y in range(9):\n        if 3*x+5*y<=40 and 5*x+2*y<=35:\n            profit=500000*(x+y)\n            if profit>best:\n                best=profit\n                pairs=[(x,y)]\n            elif profit==best:\n                pairs.append((x,y))\nfor x,y in pairs:\n    print(x,y)\nprint(f\"Profit={best}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "5 5\nProfit=5000000\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am45",
+    "course": "ai-math",
+    "title": "Quadratic roots 二次方程式求根",
+    "lesson": 9,
+    "source": "Lecture 09 · generalized exercise",
+    "description": "Read a b c on one line, with a!=0. For a*x**2+b*x+c=0, print distinct real roots in ascending order on one line, each to four decimals. Print No real roots if the discriminant is negative.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import math\na,b,c=map(float,input().split())\nd=b*b-4*a*c\nif d<0:\n    print(\"No real roots\")\nelif d==0:\n    print(f\"{-b/(2*a):.4f}\")\nelse:\n    roots=sorted([(-b-math.sqrt(d))/(2*a),(-b+math.sqrt(d))/(2*a)])\n    print(f\"{roots[0]:.4f} {roots[1]:.4f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "1 -2 -8\n",
+        "expected": "-2.0000 4.0000\n"
+      },
+      {
+        "name": "Example",
+        "input": "1 -2 1\n",
+        "expected": "1.0000\n"
+      },
+      {
+        "name": "Example",
+        "input": "1 0 1\n",
+        "expected": "No real roots\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am46",
+    "course": "ai-math",
+    "title": "Quadratic vertex 二次函數頂點",
+    "lesson": 9,
+    "source": "Lecture 09",
+    "description": "Read a b c on one line with a!=0. Print the vertex h k, both to two decimals, then Minimum if a>0, otherwise Maximum.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "a,b,c=map(float,input().split())\nh=-b/(2*a)\nk=a*h*h+b*h+c\nprint(f\"{h:.2f} {k:.2f}\")\nprint(\"Minimum\" if a>0 else \"Maximum\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "3 -12 10\n",
+        "expected": "2.00 -2.00\nMinimum\n"
+      },
+      {
+        "name": "Example",
+        "input": "-3.5 18.5 -5\n",
+        "expected": "2.64 19.45\nMaximum\n"
+      }
+    ],
+    "packages": []
+  },
+  {
+    "id": "am47",
+    "course": "ai-math",
+    "title": "Three-point quadratic 三點求二次函數",
+    "lesson": 9,
+    "source": "Lecture 09",
+    "description": "The points (1,500),(2,1000),(3,2000) use visits in units of 100. Fit y=a*x**2+b*x+c. Print integer a,b,c on one line, then predicted sales at 400 visits (x=4) on the next line. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "from sympy import symbols,solve\na,b,c=symbols(\"a b c\")\nr=solve([a+b+c-500,4*a+2*b+c-1000,9*a+3*b+c-2000],[a,b,c])\nprint(r[a],r[b],r[c])\nprint(16*r[a]+4*r[b]+r[c])\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "250 -250 500\n3500\n"
+      }
+    ],
+    "packages": [
+      "sympy"
+    ]
+  },
+  {
+    "id": "am48",
+    "course": "ai-math",
+    "title": "Least-squares coefficients 最小平方法",
+    "lesson": 10,
+    "source": "Lecture 10",
+    "description": "Fit y=a*x+b to x=[1,2,3], y=[5,10,20] using np.polyfit(x,y,1). Print a then b, each to four decimals on a separate line. Do not round the coefficients before calculating. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Translate the quantities into a mathematical model before coding.",
+      "Use the formula and output precision stated in the question.",
+      "Keep full precision until the final print statement."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\na,b=np.polyfit([1,2,3],[5,10,20],1)\nprint(f\"{a:.4f}\")\nprint(f\"{b:.4f}\")\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "7.5000\n-3.3333\n"
+      }
+    ],
+    "packages": [
+      "numpy"
+    ]
+  },
+  {
+    "id": "am49",
+    "course": "ai-math",
+    "title": "Regression chart 迴歸直線",
+    "lesson": 10,
+    "source": "Lecture 10",
+    "description": "Fit y=a*x+b using x=[1,2,3], y=[5,10,20]. Scatter the observed points. Plot the fitted line evaluated at those same three x values. Label axes Visits (100) and Sales (100); show a grid.\n\nNo input. Create the specified chart; no printed output is required. Chart properties are checked numerically, not by pixel matching.",
+    "hints": [
+      "Useful functions: array(), polyfit(), scatter(), plot(), xlabel(), ylabel(), grid(), show().",
+      "Create the specified x values first, then calculate every y value from them.",
+      "Set the stated labels, styles and limits before plt.show(). Chart checks inspect properties, not pixels."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport matplotlib.pyplot as plt\nx=np.array([1,2,3])\ny=np.array([5,10,20])\na,b=np.polyfit(x,y,1)\nplt.scatter(x,y)\nplt.plot(x,a*x+b)\nplt.xlabel(\"Visits (100)\")\nplt.ylabel(\"Sales (100)\")\nplt.grid()\nplt.show()\n",
+    "tests": [
+      {
+        "name": "Lecture example",
+        "input": "",
+        "expected": ""
+      }
+    ],
+    "packages": [
+      "numpy",
+      "matplotlib"
+    ],
+    "verification": "import numpy as np\nimport matplotlib.pyplot as plt\nfrom matplotlib.colors import to_rgba\nfrom matplotlib.collections import PathCollection, PolyCollection\ndef need(ok,message):\n    if not ok: raise AssertionError(message)\ndef close(a,b):\n    try: return np.shape(a)==np.shape(b) and np.allclose(np.asarray(a,dtype=float),np.asarray(b,dtype=float),rtol=1e-6,atol=1e-7)\n    except (TypeError,ValueError): return False\ndef line(ax,x,y):\n    matches=[l for l in ax.lines if close(l.get_xdata(),x) and close(l.get_ydata(),y)]\n    need(bool(matches),'Plot the required x/y data as a line.'); return matches[0]\ndef scatter(ax,x,y):\n    matches=[c for c in ax.collections if isinstance(c,PathCollection) and close(c.get_offsets(),np.column_stack([x,y]))]\n    need(bool(matches),'Use scatter() with the required x/y data.'); return matches[0]\ndef color(artist,value): need(close(to_rgba(artist.get_color()),to_rgba(value)),'Use the requested line color: '+value)\ndef includes_vertices(collection,x,y):\n    vertices=collection.get_paths()[0].vertices\n    keys={tuple(v) for v in np.round(vertices,6)}\n    return all(tuple(v) in keys for v in np.round(np.column_stack([x,np.broadcast_to(y,np.shape(x))]),6))\ndef grid(ax): need(any(l.get_visible() for l in ax.get_xgridlines()) and any(l.get_visible() for l in ax.get_ygridlines()),'Show a grid on both axes.')\ndef labels(ax,title=None,x=None,y=None):\n    if title is not None: need(ax.get_title()==title,'Set the title to '+title)\n    if x is not None: need(ax.get_xlabel()==x,'Set the x-axis label to '+x)\n    if y is not None: need(ax.get_ylabel()==y,'Set the y-axis label to '+y)\ndef legend(ax,values):\n    leg=ax.get_legend();need(leg is not None,'Display the legend with legend().')\n    need([t.get_text() for t in leg.get_texts()]==values,'Use the requested legend labels and order.')\nneed(bool(plt.get_fignums()),'Create a Matplotlib figure.')\nfig=plt.figure(plt.get_fignums()[-1]);need(bool(fig.axes),'Create chart axes.');ax=fig.axes[0]\nx=np.array([1,2,3]);y=np.array([5,10,20]);a,b=np.polyfit(x,y,1)\nscatter(ax,x,y);line(ax,x,a*x+b)\nlabels(ax,x=\"Visits (100)\",y=\"Sales (100)\");grid(ax)",
+    "kind": "plot"
+  },
+  {
+    "id": "am50",
+    "course": "ai-math",
+    "title": "Regression target visits 回推拜訪次數",
+    "lesson": 10,
+    "source": "Lecture 10 · whole-visit threshold",
+    "description": "Fit the unrounded least-squares line using x=[1,2,3], y=[5,10,20], where both axes are in hundreds. Print the minimum whole number of visits predicted to achieve at least 2500 sales. Round UP only after converting visits to individual visits. No input.\n\nPrint only the requested output, with no input prompts.",
+    "hints": [
+      "Use np.polyfit(...,1) and retain its full coefficient precision.",
+      "Solve 25=a*x+b; x is measured in hundreds of visits.",
+      "Use math.ceil(x*100) for the minimum integer that reaches the target."
+    ],
+    "rule": "",
+    "solution": "import numpy as np\nimport math\na,b=np.polyfit([1,2,3],[5,10,20],1)\nprint(math.ceil(((25-b)/a)*100))\n",
+    "tests": [
+      {
+        "name": "Example",
+        "input": "",
+        "expected": "378\n"
+      }
+    ],
+    "packages": [
+      "numpy"
+    ]
+  }
+]

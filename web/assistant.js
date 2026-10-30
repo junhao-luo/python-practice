@@ -15,7 +15,7 @@ function aiConnection(){return {provider:aiProvider,model:aiModel,...(aiKey?{api
 function snapshot(){return {id:current.id,code:$('editor').value,epoch:identityEpoch};}
 function relevantEvidence(s){return lastResult?.kind==='check'&&lastResult.id===s.id&&lastResult.code===s.code?lastResult.data:null;}
 function recentRun(s){return lastResult?.kind==='run'&&lastResult.id===s.id&&lastResult.code===s.code?{status:lastResult.data.status,input:lastResult.input,stdout:lastResult.data.stdout.slice(0,1000),stderr:lastResult.data.stderr.slice(-1600)}:null;}
-function compactEvidence(evidence){return evidence?{restriction:evidence.restriction||'',results:evidence.results.map(r=>({status:r.status,stdout:r.stdout.slice(0,2000),stderr:r.stderr.slice(-1600)}))}:null;}
+function compactEvidence(evidence){return evidence?{restriction:evidence.restriction||'',results:evidence.results.map(r=>({status:r.status,stdout:r.stdout.slice(0,2000),stderr:r.stderr.slice(-1600),verification_passed:r.verification_passed,verification_error:r.verification_error||''}))}:null;}
 async function requestAssistant(data){
   if(data.useSavedKey)return accountFetch('/api/ai','POST',data);
   return normalApi('/api/ai',data);

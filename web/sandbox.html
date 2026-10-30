@@ -5,7 +5,7 @@
 function runtime(){
   const BASE='https://cdn.jsdelivr.net/pyodide/v0.27.7/full/';
   const python = `
-import ast as _ast, io as _io, json as _json, sys as _sys, time as _time, traceback as _traceback
+import ast as _ast, io as _io, json as _json, sys as _sys, time as _time, traceback as _traceback, base64 as _base64
 class _OutputLimit(BaseException):
     pass
 class _LimitedOutput(_io.StringIO):
@@ -37,13 +37,27 @@ def _practice_rule(code, rule):
     return ''
 def _practice_run(payload):
     p = _json.loads(payload)
+    plt = _sys.modules.get('matplotlib.pyplot')
+    if plt is not None:
+        plt.close('all')
+        plt.show = lambda *args, **kwargs: None
     old_streams = _sys.stdin, _sys.stdout, _sys.stderr
     out, err = _LimitedOutput(), _LimitedOutput()
     _sys.stdin, _sys.stdout, _sys.stderr = _io.StringIO(p['input']), out, err
     start = _time.perf_counter()
     status, exit_code = 'ok', 0
+    ns = {'__name__': '__main__'}
+    verification_error = ''
+    verification_passed = True
+    images = []
     try:
-        exec(compile(p['code'], 'main.py', 'exec'), {'__name__': '__main__'})
+        exec(compile(p['code'], 'main.py', 'exec'), ns)
+        if p.get('verification'):
+            try:
+                exec(p['verification'], {'ns': ns})
+            except BaseException as error:
+                verification_passed = False
+                verification_error = str(error)[:1000] or 'Chart requirements were not met.'
     except _OutputLimit:
         status, exit_code = 'output_limit', 1
     except SystemExit as error:
@@ -59,20 +73,37 @@ def _practice_run(payload):
         except _OutputLimit: status = 'output_limit'
     finally:
         _sys.stdin, _sys.stdout, _sys.stderr = old_streams
-    return _json.dumps({'stdout':out.getvalue().replace('\\r\\n','\\n'), 'stderr':err.getvalue().replace('\\r\\n','\\n'), 'status':status, 'exit_code':exit_code, 'milliseconds':round((_time.perf_counter()-start)*1000)})
+    plt = _sys.modules.get('matplotlib.pyplot')
+    if plt is not None:
+        try:
+            for number in plt.get_fignums()[:4]:
+                buf = _io.BytesIO()
+                plt.figure(number).savefig(buf, format='png', dpi=90)
+                encoded = _base64.b64encode(buf.getvalue()).decode('ascii')
+                if len(encoded) <= 3000000:
+                    images.append(encoded)
+        except BaseException:
+            pass
+        finally:
+            plt.close('all')
+    return _json.dumps({'stdout':out.getvalue().replace('\\r\\n','\\n'), 'stderr':err.getvalue().replace('\\r\\n','\\n'), 'status':status, 'exit_code':exit_code, 'verification_passed':verification_passed, 'verification_error':verification_error, 'images':images, 'milliseconds':round((_time.perf_counter()-start)*1000)})
 `;
   self.onmessage=async event=>{
     try{
-      const {code,cases,rule}=event.data;
+      const {code,cases,rule,packages=[],verification=''}=event.data;
       importScripts(BASE+'pyodide.js');
       const py=await loadPyodide({indexURL:BASE});
+      const supported=['numpy','sympy','matplotlib','scipy'];
+      const needed=supported.filter(name=>packages.includes(name)||new RegExp('(?:from|import)\\s+'+name+'(?:[.\\s,]|$)').test(code));
+      if(needed.length)await py.loadPackage(needed);
+      if(needed.includes('matplotlib'))py.runPython("import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot");
       py.runPython(python);
       py.globals.set('_code',code);py.globals.set('_rule',rule||'');
       const restriction=py.runPython('_practice_rule(_code, _rule)');
       if(restriction){postMessage({type:'restriction',restriction});return;}
       for(let i=0;i<cases.length;i++){
         postMessage({type:'case_start',index:i});
-        py.globals.set('_payload',JSON.stringify({code,input:cases[i].input}));
+        py.globals.set('_payload',JSON.stringify({code,input:cases[i].input,verification}));
         const result=JSON.parse(py.runPython('_practice_run(_payload)'));
         postMessage({type:'case_result',index:i,result});
         if(result.status==='output_limit')break;
@@ -88,6 +119,7 @@ function finished(){const snapshot=results;clean();send('done',{results:snapshot
 window.addEventListener('message',event=>{
   if(event.source!==parent||!event.data||event.data.type!=='execute')return;
   clean();currentId=event.data.id;results=[];
+  const limit=event.data.payload.timeLimit===10000?10000:2500;
   const blob=new Blob(['('+runtime.toString()+')()'],{type:'text/javascript'});
   const url=URL.createObjectURL(blob);
   worker=new Worker(url);
@@ -97,7 +129,7 @@ window.addEventListener('message',event=>{
     URL.revokeObjectURL(url);
     const data=event.data;
     if(data.type==='case_start'){
-      clearTimeout(timer);timer=setTimeout(()=>{results.push({stdout:'',stderr:'',status:'timeout',exit_code:1,milliseconds:2500});finished();},2500);
+      clearTimeout(timer);timer=setTimeout(()=>{results.push({stdout:'',stderr:'',status:'timeout',exit_code:1,milliseconds:limit});finished();},limit);
     }else if(data.type==='case_result'){
       clearTimeout(timer);results.push(data.result);
     }else if(data.type==='restriction'){clean();send('restriction',{restriction:data.restriction});}
