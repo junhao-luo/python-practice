@@ -96,11 +96,25 @@ function element(tag, className, text) { const e = document.createElement(tag); 
 function outputBlock(parent, label, value, error=false) {
   parent.append(element('div','output-label',label),element('pre','output-pre'+(error?' error-text':''),displayText(value)));
 }
+function openChart(image){
+  let viewer=$('chart-viewer');
+  if(!viewer){
+    viewer=element('dialog','chart-viewer');viewer.id='chart-viewer';viewer.setAttribute('aria-label','Full-screen chart');
+    const close=element('button','chart-viewer-close','×');close.type='button';close.setAttribute('aria-label','Close full-screen chart');close.onclick=()=>viewer.close();
+    const full=element('img','chart-viewer-image');full.alt='Full-screen Matplotlib chart';
+    viewer.append(close,full);document.body.append(viewer);
+    viewer.addEventListener('click',event=>{if(event.target===viewer)viewer.close();});
+    viewer.addEventListener('keydown',event=>{if(event.code==='Space'&&event.target!==close){event.preventDefault();viewer.close();}});
+    viewer.addEventListener('close',()=>full.removeAttribute('src'));
+  }
+  viewer.querySelector('img').src=image.src;viewer.showModal();
+}
 function showCharts(parent,result){
   if(result.verification_error)parent.append(element('p','error-text',result.verification_error));
   for(const encoded of (result.images||[]).slice(0,4)){
     if(typeof encoded!=='string'||encoded.length>3000000||!/^[A-Za-z0-9+/=]+$/.test(encoded))continue;
-    const image=element('img','chart-output');image.alt='Matplotlib chart produced by your program';image.src='data:image/png;base64,'+encoded;parent.append(image);
+    const image=element('img','chart-output');image.alt='Matplotlib chart produced by your program';image.src='data:image/png;base64,'+encoded;
+    const open=element('button','chart-open');open.type='button';open.title='Open chart full screen';open.setAttribute('aria-label','Open chart full screen');open.onclick=()=>openChart(image);open.append(image);parent.append(open);
   }
 }
 const statusText = r => r.status === 'timeout' ? `Time limit exceeded (${r.milliseconds/1000} seconds). Check your loop condition and counter updates.` : r.status === 'output_limit' ? 'Output limit exceeded (128 KB). Check for an infinite printing loop.' : r.status === 'error' ? `Python error (exit ${r.exit_code}).` : '';

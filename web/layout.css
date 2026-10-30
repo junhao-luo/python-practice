@@ -22,3 +22,10 @@ body.resizing-columns iframe,body.resizing-rows iframe{pointer-events:none}
   .panel-divider.problem{left:var(--problem-width,36%)}
 }
 @media(max-width:760px){.panel-divider{display:none}}
+.chart-open{display:block;width:100%;padding:0;background:transparent;border:0;cursor:zoom-in}
+.chart-open:hover{background:transparent}.chart-open:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.chart-viewer{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:60px 24px 30px;border:0;background:rgba(8,11,15,.97);overflow:hidden;color:var(--text)}
+.chart-viewer[open]{display:flex;align-items:center;justify-content:center}
+.chart-viewer::backdrop{background:rgba(0,0,0,.85)}
+.chart-viewer-image{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.chart-viewer-close{position:absolute;top:12px;right:18px;width:42px;height:42px;padding:0;font-size:32px;line-height:1;background:#263039;border:1px solid #51616b;z-index:1}
