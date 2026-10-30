@@ -78,3 +78,7 @@ The mathematics catalog uses the available unlocked course materials and saved t
 NumPy, SymPy, Matplotlib and SciPy are supported in the isolated browser runner. Required packages download from the pinned Pyodide CDN on demand. Matplotlib uses the Agg backend; figures appear as PNG images in the terminal after Run and in individual Check results. Up to four final figures are shown per case. `show()` is nonblocking; figures explicitly closed by the program are not retained. Large or slow figures may hit the execution limit. The first scientific-package download can take longer than a basic run.
 
 Nineteen chart exercises check numerical data, chart labels/styles, scatter properties, fills or subplot requirements as specified by each prompt. This is not pixel matching. The AI receives textual chart-check feedback rather than large image payloads. Numeric exercises retain exact text-output matching. All checks run in the browser and remain suitable for learning rather than examinations.
+
+## Resizable panels
+
+On desktop/tablet widths, drag the boundaries between the problem and coding panels, editor and terminal, or terminal input and output. Sizes are remembered on this device. Double-click a divider to reset it. Keyboard users can focus a divider and use arrow keys (Shift for larger steps), Home or End. On narrow mobile screens the panels retain their stacked layout.
