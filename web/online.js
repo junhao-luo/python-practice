@@ -13,11 +13,10 @@ function difference(expected,actual){for(let i=0;i<Math.max(expected.length,actu
 function setupRunner(){
   runnerReady=new Promise(resolve=>{
     runnerFrame=document.createElement('iframe');runnerFrame.title='Isolated browser Python';runnerFrame.hidden=true;runnerFrame.sandbox='allow-scripts';
-    const startup=setTimeout(()=>resolve(false),15000);
     window.addEventListener('message',event=>{
       if(event.source!==runnerFrame.contentWindow||!event.data?.practiceRunner)return;
       const data=event.data;
-      if(data.type==='ready'){clearTimeout(startup);resolve(true);}
+      if(data.type==='ready')resolve(true);
       else if(pendingRun&&data.id===pendingRun.id){
         const pending=pendingRun;pendingRun=null;
         if(data.type==='error')pending.reject(new Error(data.error));
@@ -29,7 +28,9 @@ function setupRunner(){
   });
 }
 async function browserRun(code,cases,rule,options={}){
-  if(!(await runnerReady))throw new Error('The browser Python runner could not start. Reload and try again.');
+  let startup;
+  const ready=await Promise.race([runnerReady,new Promise(resolve=>{startup=setTimeout(()=>resolve(false),15000);})]);clearTimeout(startup);
+  if(!ready)throw new Error('The browser Python runner is still loading. Wait a moment and try Run again.');
   if(pendingRun)throw new Error('A program is already running.');
   $('run-status').textContent='Loading browser Python…';
   return new Promise((resolve,reject)=>{
