@@ -24,6 +24,7 @@ function setupRunner(){
         else pending.resolve(data);
       }
     });
+    runnerFrame.onload=()=>runnerFrame.contentWindow.postMessage({type:'ping'},'*');
     runnerFrame.src=APP_BASE+'/sandbox.html';document.body.append(runnerFrame);
   });
 }

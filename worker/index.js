@@ -25,7 +25,7 @@ export default {
           }
         }catch{}
       }
-      if(path==='/sandbox.html')assetHeaders['Content-Security-Policy']="default-src 'none'; script-src 'unsafe-inline' 'wasm-unsafe-eval' blob: https://cdn.jsdelivr.net; worker-src blob:; connect-src https://cdn.jsdelivr.net; style-src 'none'; base-uri 'none'; object-src 'none'";
+      if(path==='/sandbox.html')assetHeaders['Content-Security-Policy']=`default-src 'none'; script-src 'wasm-unsafe-eval' blob: https://eljhon.me https://python-practice-chi.vercel.app ${url.origin} https://cdn.jsdelivr.net; worker-src blob:; connect-src https://cdn.jsdelivr.net; style-src 'none'; base-uri 'none'; object-src 'none'`;
       return new Response(ASSETS[path],{headers:assetHeaders});
     }
     return json({error:'Not found.'},404);

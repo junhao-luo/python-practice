@@ -1,0 +1,142 @@
+
+// This document runs with sandbox="allow-scripts", without same-origin access.
+// Its worker inherits a policy that allows only the pinned runtime CDN.
+function runtime(){
+  const BASE='https://cdn.jsdelivr.net/pyodide/v0.27.7/full/';
+  const python = `
+import ast as _ast, io as _io, json as _json, sys as _sys, time as _time, traceback as _traceback, base64 as _base64
+class _OutputLimit(BaseException):
+    pass
+class _LimitedOutput(_io.StringIO):
+    def write(self, text):
+        if self.tell() + len(text) > 131072:
+            raise _OutputLimit()
+        return super().write(text)
+def _practice_rule(code, rule):
+    try:
+        tree = _ast.parse(code)
+    except SyntaxError:
+        return ''
+    nodes = list(_ast.walk(tree))
+    if rule in ('while', 'nested_while'):
+        if any(isinstance(n, (_ast.For, _ast.AsyncFor, _ast.ListComp, _ast.SetComp, _ast.DictComp, _ast.GeneratorExp)) for n in nodes):
+            return 'This exercise requires while loops only; for loops and comprehensions are not allowed.'
+        loops = [n for n in nodes if isinstance(n, _ast.While)]
+        if not loops:
+            return 'Use a while loop for this exercise.'
+        if rule == 'nested_while' and not any(any(isinstance(child, _ast.While) and child is not loop for child in _ast.walk(loop)) for loop in loops):
+            return 'Use a while loop inside another while loop for this exercise.'
+    if rule == 'for' and not any(isinstance(n, _ast.For) for n in nodes):
+        return 'Use a for loop for this exercise.'
+    if rule == 'distinct_loop':
+        if not any(isinstance(n, (_ast.For, _ast.While)) for n in nodes):
+            return 'Use a loop to maintain the two largest distinct values.'
+        if any(isinstance(n, _ast.Call) and isinstance(n.func, _ast.Name) and n.func.id in ('sorted', 'set') for n in nodes):
+            return 'Maintain the two values with a loop instead of sorted() or set().'
+    return ''
+def _practice_run(payload):
+    p = _json.loads(payload)
+    plt = _sys.modules.get('matplotlib.pyplot')
+    if plt is not None:
+        plt.close('all')
+        plt.show = lambda *args, **kwargs: None
+    old_streams = _sys.stdin, _sys.stdout, _sys.stderr
+    out, err = _LimitedOutput(), _LimitedOutput()
+    _sys.stdin, _sys.stdout, _sys.stderr = _io.StringIO(p['input']), out, err
+    start = _time.perf_counter()
+    status, exit_code = 'ok', 0
+    ns = {'__name__': '__main__'}
+    verification_error = ''
+    verification_passed = True
+    images = []
+    try:
+        exec(compile(p['code'], 'main.py', 'exec'), ns)
+        if p.get('verification'):
+            try:
+                exec(p['verification'], {'ns': ns})
+            except BaseException as error:
+                verification_passed = False
+                verification_error = str(error)[:1000] or 'Chart requirements were not met.'
+    except _OutputLimit:
+        status, exit_code = 'output_limit', 1
+    except SystemExit as error:
+        exit_code = error.code if isinstance(error.code, int) else (0 if error.code is None else 1)
+        if exit_code:
+            status = 'error'
+            if error.code is not None and not isinstance(error.code, int):
+                try: err.write(str(error.code) + '\\n')
+                except _OutputLimit: pass
+    except BaseException:
+        status, exit_code = 'error', 1
+        try: err.write(_traceback.format_exc())
+        except _OutputLimit: status = 'output_limit'
+    finally:
+        _sys.stdin, _sys.stdout, _sys.stderr = old_streams
+    plt = _sys.modules.get('matplotlib.pyplot')
+    if plt is not None:
+        try:
+            for number in plt.get_fignums()[:4]:
+                buf = _io.BytesIO()
+                plt.figure(number).savefig(buf, format='png', dpi=90)
+                encoded = _base64.b64encode(buf.getvalue()).decode('ascii')
+                if len(encoded) <= 3000000:
+                    images.append(encoded)
+        except BaseException:
+            pass
+        finally:
+            plt.close('all')
+    return _json.dumps({'stdout':out.getvalue().replace('\\r\\n','\\n'), 'stderr':err.getvalue().replace('\\r\\n','\\n'), 'status':status, 'exit_code':exit_code, 'verification_passed':verification_passed, 'verification_error':verification_error, 'images':images, 'milliseconds':round((_time.perf_counter()-start)*1000)})
+`;
+  self.onmessage=async event=>{
+    try{
+      const {code,cases,rule,packages=[],verification=''}=event.data;
+      importScripts(BASE+'pyodide.js');
+      const py=await loadPyodide({indexURL:BASE});
+      const supported=['numpy','sympy','matplotlib','scipy'];
+      const needed=supported.filter(name=>packages.includes(name)||new RegExp('(?:from|import)\\s+'+name+'(?:[.\\s,]|$)').test(code));
+      if(needed.length)await py.loadPackage(needed);
+      if(needed.includes('matplotlib'))py.runPython("import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot");
+      py.runPython(python);
+      py.globals.set('_code',code);py.globals.set('_rule',rule||'');
+      const restriction=py.runPython('_practice_rule(_code, _rule)');
+      if(restriction){postMessage({type:'restriction',restriction});return;}
+      for(let i=0;i<cases.length;i++){
+        postMessage({type:'case_start',index:i});
+        py.globals.set('_payload',JSON.stringify({code,input:cases[i].input,verification}));
+        const result=JSON.parse(py.runPython('_practice_run(_payload)'));
+        postMessage({type:'case_result',index:i,result});
+        if(result.status==='output_limit')break;
+      }
+      postMessage({type:'done'});
+    }catch(error){postMessage({type:'error',error:String(error.message||error)});}
+  };
+}
+let worker, timer, currentId, results=[];
+function clean(){clearTimeout(timer);if(worker)worker.terminate();worker=null;}
+function send(type,extra={}){parent.postMessage({practiceRunner:true,id:currentId,type,...extra},'*');}
+function finished(){const snapshot=results;clean();send('done',{results:snapshot});}
+window.addEventListener('message',event=>{
+  if(event.source!==parent||!event.data)return;
+  if(event.data.type==='ping'){parent.postMessage({practiceRunner:true,type:'ready'},'*');return;}
+  if(event.data.type!=='execute')return;
+  clean();currentId=event.data.id;results=[];
+  const limit=event.data.payload.timeLimit===10000?10000:2500;
+  const blob=new Blob(['('+runtime.toString()+')()'],{type:'text/javascript'});
+  const url=URL.createObjectURL(blob);
+  worker=new Worker(url);
+  timer=setTimeout(()=>{clean();send('error',{error:'Python could not load within 90 seconds. Check your connection and try again.'});},90000);
+  worker.onerror=event=>{clean();send('error',{error:'Could not start browser Python. '+event.message});};
+  worker.onmessage=event=>{
+    URL.revokeObjectURL(url);
+    const data=event.data;
+    if(data.type==='case_start'){
+      clearTimeout(timer);timer=setTimeout(()=>{results.push({stdout:'',stderr:'',status:'timeout',exit_code:1,milliseconds:limit});finished();},limit);
+    }else if(data.type==='case_result'){
+      clearTimeout(timer);results.push(data.result);
+    }else if(data.type==='restriction'){clean();send('restriction',{restriction:data.restriction});}
+    else if(data.type==='done')finished();
+    else if(data.type==='error'){clean();send('error',{error:data.error});}
+  };
+  worker.postMessage(event.data.payload);
+});
+parent.postMessage({practiceRunner:true,type:'ready'},'*');
