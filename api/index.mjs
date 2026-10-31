@@ -1,5 +1,5 @@
 import worker from '../dist/server/index.js';
-import {accountRoute,savedAiRequest} from '../lib/accounts.mjs';
+import {accountRoute,savedAiRequest,authenticate} from '../lib/accounts.mjs';
 export default async function handler(req,res){
   try{
     const origin='https://'+(req.headers['x-forwarded-host']||req.headers.host);
@@ -14,12 +14,20 @@ export default async function handler(req,res){
     if(body&&Buffer.byteLength(body)>90000){res.status(413).json({error:'Request too large.'});return;}
     const incoming=new Headers(req.headers);incoming.delete('oai-authenticated-user-id');incoming.delete('oai-authenticated-user-email');
     let request=new Request(url,{method:req.method,headers:incoming,...(body?{body}:{})});
-    let response=await accountRoute(request,process.env);
+    const path=url.pathname.replace(/^\/python-practice(?=\/|$)/,'')||'/';
+    const protectedRoute=path==='/lab'||['/api/problems','/api/courses','/api/tests','/api/solution','/api/ai'].includes(path);
+    let verified=false,response;
+    if(protectedRoute){
+      const auth=await authenticate(request,process.env);
+      if(auth.error)response=path==='/lab'?new Response(null,{status:302,headers:{Location:'/python-practice','Cache-Control':'no-store'}}):auth.error;
+      else{verified=true;incoming.set('oai-authenticated-user-id',auth.userId);request=new Request(url,{method:req.method,headers:incoming,...(body?{body}:{})});}
+    }
+    response=response||await accountRoute(request,process.env);
     if(!response&&req.method==='POST'&&url.pathname.endsWith('/api/ai')){
       let data;try{data=JSON.parse(body||'{}');}catch{data={};}
       const resolved=await savedAiRequest(request,process.env,data);if(resolved.error)response=resolved.error;else request=resolved.request;
     }
-    response=response||await worker.fetch(request,{...process.env,PUBLIC_APP:'1'});
+    response=response||await worker.fetch(request,{...process.env,PUBLIC_APP:'1',PRACTICE_AUTHENTICATED:verified?'1':'0'});
     res.status(response.status);response.headers.forEach((value,name)=>res.setHeader(name,value));
     res.send(Buffer.from(await response.arrayBuffer()));
   }catch{res.status(500).json({error:'The practice service could not finish this request. Please try again.'});}

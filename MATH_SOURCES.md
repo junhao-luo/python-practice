@@ -17,3 +17,11 @@ The 50 fixed exercises were authored from the user's unlocked Mandarin lecture P
 Prompts are English with Mandarin keywords. Input and precision contracts are adapted for deterministic self-study checks. Where the original asks for a pictured chart, the prompt states an explicit adapted data/style specification; it does not claim a pixel-perfect reconstruction. Some tasks split out the numerical portion of an original combined chart task.
 
 Minimum whole customer/visit thresholds use ceiling after full-precision calculations. Inequality tasks retain their inequalities and enumerate integer assignments. Distance tasks take the absolute value of coordinate differences. Chart validation uses numerical tolerance for data; printed numeric answers use the exact formatting stated in each exercise.
+
+## New synthesized reviewer and exam briefing
+
+Primary content source: `AI_Mathematics_Lessons_1-10_Reviewer_Package/AI_Mathematics_Lessons_1-10_Synthesized_Reviewer.md`, with its 65 Python examples. Added reviewer coverage includes symbolic substitution, roots, numerical systems, matrix images, two-point models, October 23 graph/target exercises, five-feature film similarity, weighted/Minkowski distances, feasible-region plotting, quadratic thresholds and residuals.
+
+The existing 0923/0930 chart specifications were replaced with the reviewer's actual data, titles, tick colors, line styles and markers. These fifteen changed exercise IDs end in `r2`, avoiding false completion from an earlier specification. Other IDs retain their original learning/output contracts.
+
+`Six Exam Topics/README.md`, its six Python programs and `practice_outputs.txt` supply the six dedicated exam-practice tasks. The sample values are explicitly illustrative. Q1's detailed scope is inferred; Q6 axes remain provisional. Topic tagging identifies related skills, not guaranteed exact exam questions or answers. No login screenshots or research evidence are published.

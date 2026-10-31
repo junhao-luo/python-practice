@@ -1,0 +1,53 @@
+{
+  "source": "AI基礎數學 (一)\\Midterm Reviewer\\AI_Mathematics_Lessons_1-10_Reviewer_Package",
+  "revisedIds": [
+    "am02",
+    "am11",
+    "am12",
+    "am13",
+    "am14",
+    "am15",
+    "am16",
+    "am17",
+    "am18",
+    "am19",
+    "am20",
+    "am21",
+    "am22",
+    "am23",
+    "am24"
+  ],
+  "mathCount": 81,
+  "examTopics": [
+    {
+      "id": 1,
+      "points": 14,
+      "title": "Q1 practice (14 pts; topic inferred from drawing, spoken requirements unavailable)"
+    },
+    {
+      "id": 2,
+      "points": 12,
+      "title": "Q2 practice (12 pts)"
+    },
+    {
+      "id": 3,
+      "points": 14,
+      "title": "Q3 practice (14 pts)"
+    },
+    {
+      "id": 4,
+      "points": 14,
+      "title": "Q4 practice (14 pts)"
+    },
+    {
+      "id": 5,
+      "points": 20,
+      "title": "Q5 practice (20 pts)"
+    },
+    {
+      "id": 6,
+      "points": 26,
+      "title": "Q6 practice (26 pts)"
+    }
+  ]
+}

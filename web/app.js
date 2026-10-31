@@ -4,6 +4,7 @@ const APP_BASE = location.pathname.startsWith('/python-practice') ? '/python-pra
 const GUEST_KEY = 'python-practice-lab-v1';
 let KEY = GUEST_KEY, identityEpoch = 0;
 let problems = [], allProblems = [], courses = [], activeCourse = 'programming', current, busy = false, lastResult = null, toastTimer;
+let examFilter='all';
 let state = {selected: '', drafts: {}};
 try { const saved = JSON.parse(localStorage.getItem(KEY)); if (saved && saved.drafts && typeof saved.drafts === 'object') state = saved; } catch {}
 const starter = p => `# ${p.title}\n# ${p.kind==='plot'?'Create the requested chart with Matplotlib.':'Read the input, solve the problem, and print the exact output.'}\n\n`;
@@ -18,10 +19,10 @@ function save() {
 function toast(message) { $('toast').textContent = message; $('toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4000); }
 function solved(p) { const d = state.drafts[p.id]; return !!d && (d.completed===true || d.passedCode === d.code); }
 function progress() {
-  const count = problems.filter(solved).length;
-  $('progress').max = problems.length;
-  $('progress').value = count; $('progress-label').textContent = `${count} / ${problems.length} complete`;
-  problems.forEach((p, i) => { const option = $('exercise').options[i]; option.textContent = `${solved(p) ? '✓ ' : ''}${String(i+1).padStart(2,'0')}  ${p.title}`; });
+  const courseProblems=allProblems.filter(p=>p.course===activeCourse),count = courseProblems.filter(solved).length;
+  $('progress').max = courseProblems.length;
+  $('progress').value = count; $('progress-label').textContent = `${count} / ${courseProblems.length} complete`;
+  problems.forEach((p, i) => { const option = $('exercise').options[i]; option.textContent = `${solved(p) ? '✓ ' : ''}${p.examTopics?.length?'★ ':''}${String(i+1).padStart(2,'0')}  ${p.title}`; });
   $('completion').textContent = solved(current) ? '✓ COMPLETED' : 'IN PROGRESS';
   $('completion').classList.toggle('solved', solved(current));
 }
@@ -55,9 +56,12 @@ function hints() {
 function choose(id) {
   const target=allProblems.find(p=>p.id===id);
   const course=target?.course||state.course||'programming';
-  if(course!==activeCourse||!problems.length){
+  if(course!==activeCourse)examFilter='all';
+  if(target&&examFilter!=='all'&&!matchesExam(target))examFilter='all';
+  const filtered=allProblems.filter(p=>p.course===course&&matchesExam(p));
+  if(course!==activeCourse||!problems.length||filtered.length!==problems.length||!problems.every((p,i)=>p.id===filtered[i]?.id)){
     activeCourse=courses.some(c=>c.id===course)?course:'programming';
-    problems=allProblems.filter(p=>p.course===activeCourse);
+    problems=allProblems.filter(p=>p.course===activeCourse&&matchesExam(p));
     $('course').value=activeCourse;
     $('exercise').replaceChildren();
     problems.forEach(p=>{const option=document.createElement('option');option.value=p.id;$('exercise').append(option);});
@@ -71,6 +75,9 @@ function choose(id) {
   $('lesson').textContent = `LESSON ${String(current.lesson).padStart(2,'0')} / ${activeCourse==='ai-math'?mathLessons[current.lesson]:current.lesson===5 ? 'LOOPS 迴圈' : current.lesson===6 ? 'LISTS 串列' : current.lesson===4 ? 'CONDITIONS 條件判斷' : 'FUNDAMENTALS 基礎'}`;
   $('course-name').textContent=courses.find(c=>c.id===activeCourse)?.name||'';
   $('source-note').textContent=current.source||'';
+  $('exam-toolbar').hidden=activeCourse!=='ai-math';$('exam-filter').value=examFilter;
+  $('exam-note').hidden=!current.examTopics?.length;
+  if(current.examTopics?.length)$('exam-note').textContent='★ EXAM FOCUS 考試重點 · '+current.examTopics.map(n=>`Q${n}`).join(' / ')+(current.examPoints?` · ${current.examPoints} points`:'')+'\n'+(current.examNote||'This exercise trains a skill covered by the six exam topics; its values are practice data.');
   const matching=document.querySelector('.exact-note p');
   matching.replaceChildren(document.createTextNode(current.kind==='plot'?'Chart property checks':'Exact output matching'),document.createElement('br'),element('small','',current.kind==='plot'?'Match the requested data, labels and styles. No printed output is required.':'Match spaces, punctuation, and newlines. No extra prompts.'));
   $('catalog-note').textContent=`BROWSER PYTHON · ${problems.length} EXERCISES`;
@@ -85,8 +92,11 @@ function choose(id) {
   lastResult = null; renderTerminal(); hints(); samples(); lineNumbers(); progress(); save();
   $('run-status').textContent = 'Ready when you are';
 }
+function matchesExam(p){return p.course!=='ai-math'||examFilter==='all'||(examFilter==='exam'?!!p.examTopics?.length:p.examTopics?.includes(Number(examFilter)));}
 async function api(path, data) {
-  const response = await fetch(APP_BASE+path, data === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json','X-Practice-Request':'1'},body:JSON.stringify(data)});
+  const token=await window.Clerk?.session?.getToken();
+  const auth=token?{Authorization:'Bearer '+token}:{};
+  const response = await fetch(APP_BASE+path, data === undefined ? {headers:auth} : {method:'POST', headers:{...auth,'Content-Type':'application/json','X-Practice-Request':'1'},body:JSON.stringify(data)});
   let result;
   try { result = await response.json(); } catch { throw new Error('The local server returned an unreadable response. Restart the app.'); }
   if (!response.ok) throw new Error(result.error || 'Local request failed.');
@@ -152,7 +162,7 @@ function renderTerminal() {
 }
 async function execute(kind) {
   if(busy)return;
-  busy=true; $('run').disabled=true; $('check').disabled=true; $('course').disabled=true; $('exercise').disabled=true; $('previous').disabled=true; $('next').disabled=true;
+  busy=true; $('run').disabled=true; $('check').disabled=true; $('course').disabled=true; $('exam-filter').disabled=true; $('exercise').disabled=true; $('previous').disabled=true; $('next').disabled=true;
   const p=current, code=$('editor').value, epoch=identityEpoch;
   $('run-status').textContent = kind==='check' ? (p.kind==='plot'?'Checking chart requirements…':`Checking ${p.test_count} test cases…`) : 'Running Python…';
   try {
@@ -162,12 +172,13 @@ async function execute(kind) {
     $('run-status').textContent=kind==='check'?(data.passed?'All tests passed':'Check results below'):(data.status==='ok'?'Run finished':statusText(data));
     renderTerminal();
   } catch(error) { if(epoch===identityEpoch){lastResult={kind:'error',data:error.message}; renderTerminal(); $('run-status').textContent='Connection or execution error';} }
-  finally {busy=false; $('run').disabled=false; $('check').disabled=false; $('course').disabled=false; $('exercise').disabled=false; $('previous').disabled=problems.indexOf(current)===0; $('next').disabled=problems.indexOf(current)===problems.length-1;}
+  finally {busy=false; $('run').disabled=false; $('check').disabled=false; $('course').disabled=false; $('exam-filter').disabled=false; $('exercise').disabled=false; $('previous').disabled=problems.indexOf(current)===0; $('next').disabled=problems.indexOf(current)===problems.length-1;}
 }
 $('course').addEventListener('change',()=>{
   const selected=$('course').value;
   choose(state.courseSelected?.[selected]||allProblems.find(p=>p.course===selected).id);
 });
+$('exam-filter').addEventListener('change',()=>{examFilter=$('exam-filter').value;const first=allProblems.find(p=>p.course===activeCourse&&matchesExam(p));if(first)choose(first.id);});
 $('exercise').addEventListener('change',()=>choose($('exercise').value));
 $('previous').onclick=()=>choose(problems[problems.indexOf(current)-1].id);
 $('next').onclick=()=>choose(problems[problems.indexOf(current)+1].id);

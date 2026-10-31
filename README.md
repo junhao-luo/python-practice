@@ -1,6 +1,6 @@
 # Python Practice Lab
 
-A browser-based Python practice workspace with 80 fixed exercises across two courses, exact-output tests, progressive hints, and optional AI feedback. English prompts retain useful Mandarin keywords.
+A browser-based Python practice workspace with 111 fixed exercises across two courses, exact-output tests, progressive hints, and optional AI feedback. English prompts retain useful Mandarin keywords.
 
 Target website: **https://eljhon.me/python-practice**
 
@@ -67,18 +67,32 @@ Account endpoints verify Clerk session tokens and use the authenticated user ID 
 
 ## Future lecture imports
 
-The 80 exercises remain fixed. Upload/generation is not implemented yet. Each record separates `id`, `title`, `lesson`, `description`, `hints`, `rule`, `tests`, and `solution`, allowing a later pipeline to extract PowerPoint/PDF/notes, generate candidates, validate solutions/outputs, and present them for review before saving into personal collections. Uploaded lectures must be treated as data, not AI instructions. Personal collections will require authenticated storage, upload limits, quotas, and source attribution.
+The 111 exercises remain fixed. Upload/generation is not implemented yet. Each record separates `id`, `title`, `lesson`, `description`, `hints`, `rule`, `tests`, and `solution`, allowing a later pipeline to extract PowerPoint/PDF/notes, generate candidates, validate solutions/outputs, and present them for review before saving into personal collections. Uploaded lectures must be treated as data, not AI instructions. Personal collections will require authenticated storage, upload limits, quotas, and source attribution.
 
 ## Courses and graph output
 
-The Course selector loads only that course's exercises and shows its completion count. Basic Programming I keeps its original 30 IDs and existing drafts/progress. AI Fundamental Mathematics I adds 50 exercises through lecture 10: probability, conversions, visualization, math/SymPy, functions, linear systems, distances, inequalities, quadratics and least squares. Both courses share the account's encrypted AI connection while retaining separate exercise records. Exports include both courses.
+The Course selector loads only that course's exercises and shows its completion count. Basic Programming I keeps its original 30 IDs and existing drafts/progress. AI Fundamental Mathematics I adds 81 exercises through lecture 10: probability, conversions, visualization, math/SymPy, functions, linear systems, distances, inequalities, quadratics and least squares. Both courses share the account's encrypted AI connection while retaining separate exercise records. Exports include both courses.
 
 The mathematics catalog uses the available unlocked course materials and saved translations. Tasks based on figure-only instructions have explicit adapted chart specifications; they are labeled accordingly. Some mixed numeric/graph tasks are identified as numerical parts. The reference documents are not uploaded or bundled into the public repository. See `MATH_SOURCES.md` for the source mapping.
 
 NumPy, SymPy, Matplotlib and SciPy are supported in the isolated browser runner. Required packages download from the pinned Pyodide CDN on demand. Matplotlib uses the Agg backend; figures appear as PNG images in the terminal after Run and in individual Check results. Up to four final figures are shown per case. `show()` is nonblocking; figures explicitly closed by the program are not retained. Large or slow figures may hit the execution limit. The first scientific-package download can take longer than a basic run.
 
-Nineteen chart exercises check numerical data, chart labels/styles, scatter properties, fills or subplot requirements as specified by each prompt. This is not pixel matching. The AI receives textual chart-check feedback rather than large image payloads. Numeric exercises retain exact text-output matching. All checks run in the browser and remain suitable for learning rather than examinations.
+Chart exercises check numerical data, chart labels/styles, scatter properties, fills or subplot requirements as specified by each prompt. This is not pixel matching. The AI receives textual chart-check feedback rather than large image payloads. Numeric exercises retain exact text-output matching. All checks run in the browser and remain suitable for learning rather than examinations.
 
 ## Resizable panels
 
 On desktop/tablet widths, drag the boundaries between the problem and coding panels, editor and terminal, or terminal input and output. Sizes are remembered on this device. Double-click a divider to reset it. Keyboard users can focus a divider and use arrow keys (Shift for larger steps), Home or End. On narrow mobile screens the panels retain their stacked layout.
+
+## Landing page and required sign-in
+
+`/python-practice` is the public landing page. `/python-practice/lab` requires a verified Clerk session. Problem, course, reference-solution, exercise-check and AI endpoints also verify the session on the server. The lab initializes only after Clerk confirms sign-in. Existing account progress, encrypted connections and local drafts use their existing keys. Signing out returns to the landing page.
+
+Clerk component localization names the sign-in/sign-up experience Python Practice Lab. The shared Clerk application's global name, users, domain and provider consent configuration are not renamed. Google/GitHub authorization screens remain controlled by their existing provider/application settings.
+
+## Reviewer-aligned mathematics and exam focus
+
+The 81 mathematics exercises now follow `AI_Mathematics_Lessons_1-10_Synthesized_Reviewer.md` and its worked examples. Fifteen changed specifications use new revision IDs; unchanged exercises retain their IDs and progress. Earlier drafts remain in browser storage and exports, but retired specifications no longer earn completion for revised tasks.
+
+The Exam Focus selector filters all tagged practice, or Q1 through Q6 individually. Star badges mean the exercise trains a skill in the supplied six-topic briefing, not that its sample data are the actual exam questions. Six dedicated preparation programs follow the supplied sample outputs. Q1 is explicitly inferred from a drawing. Q6's feature-sum/distance axes are provisional. The briefing's point weights are 14,12,14,14,20,26; Q5–6 together account for 46 points.
+
+The non-programming thesis-search/screenshot assignment remains a research activity in the reviewer; this lab does not pretend to automatically grade it. The dedicated KNN tasks retain Mandarin output and labels. A pinned open-source Noto Sans CJK TC font downloads from the same permitted runtime CDN when plotting code contains CJK text. The font's source is notofonts/noto-cjk, Sans2.004, distributed under the SIL Open Font License.

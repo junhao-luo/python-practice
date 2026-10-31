@@ -25,3 +25,5 @@ Configure Production variables in this Vercel project before deploying:
 Clerk reuses the existing production sign-in application registered to `eljhon.me`. Python Practice stores completion/hint flags under `privateMetadata.pythonPractice` and encrypted provider connections under `privateMetadata.pythonPracticeConnections`. Do not add these to session claims or public metadata. Keep Clerk's combined metadata size limit in mind; code drafts are not uploaded.
 
 Sign in through `eljhon.me/python-practice`. Production Clerk domain restrictions may prevent signing in through independent Vercel preview domains. Environment changes require a new deployment. No shared AI-provider key is configured: each visitor connects their own provider.
+
+The public entry is now the landing page. The authenticated lab is `/python-practice/lab`; the existing wildcard portfolio rewrite already forwards this path. No Clerk credential or global application-name changes are required.

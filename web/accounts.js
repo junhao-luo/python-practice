@@ -63,7 +63,8 @@ function hasGuestWork(){
   return Object.values(guest.drafts).some(d=>d.completed===true||d.hints>0||d.passedCode||typeof d.code==='string'&&!d.code.startsWith('# '));
 }
 async function changeAccount(user){
-  const id=user?.id||null;if(id===accountUser){if(!accountReady&&!id){accountReady=true;accountStatus('Guest · progress on this device');}return;}
+  if(!user){localSave();location.replace(APP_BASE||'/python-practice');return;}
+  const id=user.id;if(id===accountUser){if(!accountReady&&!id){accountReady=true;accountStatus('Guest · progress on this device');}return;}
   clearTimeout(progressTimer);localSave();accountGeneration++;identityEpoch++;
   const generation=accountGeneration;
   accountReady=false;applyingAccount=true;accountUser=id;cloudSnapshot='';
@@ -102,21 +103,12 @@ function importGuestWork(){
   }
   choose(current.id);$('account-import').hidden=true;save();queueProgress();toast('Guest work imported. Completion and hint progress sync to your account; drafts stay on this device.');
 }
-async function loadClerkScript(src,key){
-  await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.async=true;script.crossOrigin='anonymous';if(key)script.dataset.clerkPublishableKey=key;script.onload=resolve;script.onerror=()=>reject(Error('Sign-in could not load.'));document.head.append(script);});
-}
 async function setupAccounts(){
   if(!problems.length)await new Promise(resolve=>window.addEventListener('practice-ready',resolve,{once:true}));
   $('account-import').onclick=importGuestWork;
   $('account-sync').onclick=()=>accountUser?refreshAccount():$('account-sign-in').click();
   try{
-    const config=await normalApi('/api/auth-config');
-    if(!config.enabled){accountStatus('Sign-in is being configured');$('account-sign-in').disabled=true;return;}
-    const domain=atob(config.publishableKey.split('_')[2]).replace(/\$$/,'');
-    if(!/^[a-z0-9.-]+$/.test(domain))throw Error('Invalid sign-in configuration.');
-    await loadClerkScript(`https://${domain}/npm/@clerk/ui@1/dist/ui.browser.js`);
-    await loadClerkScript(`https://${domain}/npm/@clerk/clerk-js@6/dist/clerk.browser.js`,config.publishableKey);
-    await window.Clerk.load({ui:{ClerkUI:window.__internal_ClerkUICtor}});
+    await practiceAuthReady;
     const returnUrl=location.origin+(APP_BASE||'/python-practice');
     $('account-sign-in').disabled=false;$('account-sign-in').onclick=()=>window.Clerk.openSignIn({forceRedirectUrl:returnUrl,signUpForceRedirectUrl:returnUrl});
     window.Clerk.addListener(({user})=>{if((user?.id||null)!==accountUser)changeAccount(user);});
@@ -124,4 +116,4 @@ async function setupAccounts(){
     document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAccount();else if(accountUser)pushProgress();});
   }catch{accountStatus('Sign-in unavailable · reload',true);$('account-sign-in').disabled=true;}
 }
-init();setupAccounts();
+(async()=>{try{await practiceAuthReady;if(!window.Clerk.user){location.replace(APP_BASE||'/python-practice');return;}await init();await setupAccounts();}catch(error){$('problem-title').textContent='Sign-in required';$('description').textContent=error.message;$('account-sync').textContent='Return to the sign-in page';$('account-sync').onclick=()=>location.assign(APP_BASE||'/python-practice');}})();

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Python Practice Lab · Online</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/python-practice/style.css"><link rel="stylesheet" href="/python-practice/ai.css"><link rel="stylesheet" href="/python-practice/accounts.css"><link rel="stylesheet" href="/python-practice/layout.css"><script src="/python-practice/app.js" defer></script><script src="/python-practice/online.js" defer></script><script src="/python-practice/assistant.js" defer></script><script src="/python-practice/layout.js" defer></script><script src="/python-practice/accounts.js" defer></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Python Practice Lab · Online</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/python-practice/style.css"><link rel="stylesheet" href="/python-practice/ai.css"><link rel="stylesheet" href="/python-practice/accounts.css"><link rel="stylesheet" href="/python-practice/layout.css"><script src="/python-practice/auth.js" defer></script><script src="/python-practice/app.js" defer></script><script src="/python-practice/online.js" defer></script><script src="/python-practice/assistant.js" defer></script><script src="/python-practice/layout.js" defer></script><script src="/python-practice/accounts.js" defer></script></head>
 <body>
 <header class="topbar">
   <div class="brand"><span class="brandmark">&gt;_</span><div><strong>Python Practice Lab</strong><small id="course-name">COURSE PRACTICE · 課程練習</small></div></div>
@@ -8,11 +8,11 @@
 </header>
 <main class="workspace">
   <section class="problem-panel" aria-label="Exercise instructions">
-    <div class="course-toolbar"><label for="course">COURSE 課程</label><select id="course" aria-label="Choose course"></select></div><div class="problem-toolbar"><label for="exercise">EXERCISE</label><select id="exercise" aria-label="Choose exercise"></select><button id="previous" class="icon" aria-label="Previous exercise">←</button><button id="next" class="icon" aria-label="Next exercise">→</button></div>
+    <div class="course-toolbar"><label for="course">COURSE 課程</label><select id="course" aria-label="Choose course"></select></div><div id="exam-toolbar" class="exam-toolbar" hidden><label for="exam-filter">EXAM FOCUS 考試重點</label><select id="exam-filter" aria-label="Filter exam topics"><option value="all">All reviewer exercises</option><option value="exam">All six exam topics</option><option value="1">Q1 · Least squares · 14 pts (inferred)</option><option value="2">Q2 · Word problems · 12 pts</option><option value="3">Q3 · Quadratics · 14 pts</option><option value="4">Q4 · Line intersection · 14 pts</option><option value="5">Q5 · KNN ranking · 20 pts</option><option value="6">Q6 · KNN + graph · 26 pts</option></select></div><div class="problem-toolbar"><label for="exercise">EXERCISE</label><select id="exercise" aria-label="Choose exercise"></select><button id="previous" class="icon" aria-label="Previous exercise">←</button><button id="next" class="icon" aria-label="Next exercise">→</button></div>
     <div class="problem-scroll">
       <div class="eyebrow"><span id="lesson"></span><span id="completion" class="badge">IN PROGRESS</span></div>
       <h1 id="problem-title">Loading your practice set…</h1>
-      <div class="section-label">THE CHALLENGE <span>題目</span></div><div id="description" class="description"></div><p id="source-note" class="subtle"></p>
+      <div class="section-label">THE CHALLENGE <span>題目</span></div><p id="exam-note" class="exam-note" hidden></p><div id="description" class="description"></div><p id="source-note" class="subtle"></p>
       <div class="sample-heading"><span class="section-label">EXAMPLE <span>範例</span></span><span class="subtle">Spaces count, too.</span></div>
       <div class="sample"><div class="sample-label">INPUT</div><pre id="sample-input"></pre><div class="sample-label">EXPECTED OUTPUT</div><pre id="sample-output"></pre></div>
       <div class="exact-note"><span>＝</span><p>Exact output matching<br><small>Match spaces, punctuation, and newlines. No extra prompts.</small></p></div>

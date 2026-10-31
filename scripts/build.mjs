@@ -1,6 +1,6 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const files={};
-for(const name of ['index.html','style.css','ai.css','accounts.css','layout.css','app.js','online.js','assistant.js','layout.js','accounts.js','sandbox.html','sandbox.js']) files['/'+(name==='index.html'?'':name)] = await readFile(new URL('../web/'+name,import.meta.url),'utf8');
+for(const name of ['index.html','style.css','ai.css','accounts.css','layout.css','app.js','online.js','assistant.js','layout.js','accounts.js','sandbox.html','sandbox.js','auth.js','landing.html','landing.css','landing.js']) files['/'+(name==='index.html'?'lab':name==='landing.html'?'':name)] = await readFile(new URL('../web/'+name,import.meta.url),'utf8');
 const programming=JSON.parse(await readFile(new URL('../problems.json',import.meta.url),'utf8')).map(p=>({...p,course:'programming'}));
 const mathematics=JSON.parse(await readFile(new URL('../math-problems.json',import.meta.url),'utf8'));
 const problems=[...programming,...mathematics];

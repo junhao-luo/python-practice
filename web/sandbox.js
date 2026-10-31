@@ -95,7 +95,15 @@ def _practice_run(payload):
       const supported=['numpy','sympy','matplotlib','scipy'];
       const needed=supported.filter(name=>packages.includes(name)||new RegExp('(?:from|import)\\s+'+name+'(?:[.\\s,]|$)').test(code));
       if(needed.length)await py.loadPackage(needed);
-      if(needed.includes('matplotlib'))py.runPython("import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot");
+      if(needed.includes('matplotlib')){
+        py.runPython("import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot");
+        if(/[\u3400-\u9fff]/.test(code)){
+          const font=await fetch('https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@Sans2.004/Sans/OTF/TraditionalChinese/NotoSansCJKtc-Regular.otf');
+          if(!font.ok)throw Error('The Mandarin chart font could not load. Check your connection and retry.');
+          py.FS.writeFile('/tmp/practice-cjk.otf',new Uint8Array(await font.arrayBuffer()));
+          py.runPython("from matplotlib import font_manager as _fm; _fm.fontManager.addfont('/tmp/practice-cjk.otf'); import matplotlib.pyplot as _plt; _plt.rcParams['font.family'] = _fm.FontProperties(fname='/tmp/practice-cjk.otf').get_name(); _plt.rcParams['axes.unicode_minus'] = False");
+        }
+      }
       py.runPython(python);
       py.globals.set('_code',code);py.globals.set('_rule',rule||'');
       const restriction=py.runPython('_practice_rule(_code, _rule)');

@@ -11,3 +11,5 @@ The existing test suite predates the updated assistant response contract and sho
 Added the two-course selector, 50 AI Mathematics exercises (19 graph exercises), scientific-package loading and PNG chart display. Source syntax and the deployment build were checked. One Matplotlib Run demonstration rendered a PNG successfully on the published site after moving the isolated runner to an external script and adding a readiness handshake. Automated test suites and catalog-wide reference execution were skipped at the user's request; the new graph validators have not been runtime-tested. Earlier 144-case results apply only to the previous Basic Programming runner.
 
 Resizable panel source syntax and the deployment build were checked; automated interaction tests were skipped.
+
+Reviewer/authentication update: 81 mathematics catalog entries and their chart-check code compile as Python; IDs are unique. JavaScript syntax and the deployment build are checked. Automated test suites and full catalog execution remain skipped at the user’s request. Authentication and exam filtering require deployment observations before claiming runtime verification.

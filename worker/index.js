@@ -1,6 +1,7 @@
 export default {
   async fetch(request,env={}){
     const url=new URL(request.url),path=url.pathname.replace(/^\/python-practice(?=\/|$)/,'')||'/';
+    if(env.PUBLIC_APP==='1'&&env.PRACTICE_AUTHENTICATED!=='1'&&(path==='/lab'||['/api/problems','/api/courses','/api/tests','/api/solution','/api/ai'].includes(path)))return path==='/lab'?new Response(null,{status:302,headers:{Location:'/python-practice','Cache-Control':'no-store'}}):json({error:'Sign in to open Python Practice Lab.'},401);
     if(request.method==='POST'&&path==='/api/ai')return review(request,env);
     if(request.method!=='GET')return json({error:'Method not allowed.'},405);
     if(path==='/api/auth-config')return json({enabled:!!(env.CLERK_PUBLISHABLE_KEY&&env.CLERK_SECRET_KEY),publishableKey:env.CLERK_PUBLISHABLE_KEY||null,vaultEnabled:!!env.AI_KEY_ENCRYPTION_KEY});
